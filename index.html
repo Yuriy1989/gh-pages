@@ -12,18 +12,87 @@
 
   <body class="page">
     <header class="header">
-      <img src="/images/logo.svg" class="header__logo" alt="Логотип Mesto">
+      <img src="images/logo.svg" class="header__logo" alt="Логотип Mesto">
     </header>
     <main>
       <section class="profile">
-        <img src="images/avatar.jpg" class="profile__avatar" alt="Жак-Ив Кусто в красной шапочке">
+        <div class="profile__avatar">
+          <img src="images/avatar.jpg" class="profile__image" alt="Жак-Ив Кусто в красной шапочке">
+        </div>
+        <div class="profile__info">
+          <h1 class="profile__title">Жак-Ив Кусто</h1>
+          <img src="images/edit_button.svg" class="profile__edit-button" alt="кнопка, по центру нарисован карандаш">
+          <p class="profile__text">Исследователь океанов</p>
+        </div>
+        <picture class="profile__add-button">
+          <source srcset="images/add_button_768.svg" media="(max-width: 768px)">
+          <img src="images/add_button.svg" class="profile__add-button" alt="кнопка, по центру нарисован знак плюс">
+        </picture>
       </section>
-
+      <section class="elements">
+        <ul class="cards">
+          <li class="cards__title">
+            <img src="images/Big-Bogdo.jpg" class="cards__image" alt="Гора красного цвета, окруженная кустами">
+            <div class="cards__description">
+              <h2 class="cards__text">Гора Большой Богдо, Астраханская область</h2>
+              <img src="images/heart.svg" class="cards__like" alt="Сердечко белого цвета с черной оконтовкой">
+            </div>
+          </li>
+          <li class="cards__title">
+            <img src="images/charskie_peski.jpg" class="cards__image" alt="Песчаная пустыня среди ледников">
+            <div class="cards__description">
+              <h2 class="cards__text">Чарские пески, Забайкалье</h2>
+              <img src="images/heart.svg" class="cards__like" alt="Сердечко белого цвета с черной оконтовкой">
+            </div>
+          </li>
+          <li class="cards__title">
+            <img src="images/vulkan_krenizyna.jpg" class="cards__image" alt="Вулкан окруженный озером, которое окружено горами">
+            <div class="cards__description">
+              <h2 class="cards__text">Вулкан Креницына, Курильские острова</h2>
+              <img src="images/heart.svg" class="cards__like" alt="Сердечко белого цвета с черной оконтовкой">
+            </div>
+          </li>
+          <li class="cards__title">
+            <img src="images/ordinskaya_pesher.jpg" class="cards__image" alt="Двое мужиков плывут в пещере">
+            <div class="cards__description">
+              <h2 class="cards__text">Ординская пещера, Пермский край</h2>
+              <img src="images/heart.svg" class="cards__like" alt="Сердечко белого цвета с черной оконтовкой">
+            </div>
+          </li>
+          <li class="cards__title">
+            <img src="images/shachta_mir.jpg" class="cards__image" alt="Огромный искуственный кратер">
+            <div class="cards__description">
+              <h2 class="cards__text">Алмазная шахта «Мир», Якутия</h2>
+              <img src="images/heart.svg" class="cards__like" alt="Сердечко белого цвета с черной оконтовкой">
+            </div>
+          </li>
+          <li class="cards__title">
+            <img src="images/Ruskeala.jpg" class="cards__image" alt="Река окруженная горами">
+            <div class="cards__description">
+              <h2 class="cards__text">Мраморный каньон Рускеала, Карелия</h2>
+              <img src="images/heart.svg" class="cards__like" alt="Сердечко белого цвета с черной оконтовкой">
+            </div>
+          </li>
+        </ul>
+      </section>
     </main>
 
-    <footer>
-
+    <footer class="footer">
+      <p class="footer__copyright">2022 Mesto Russia</p>
     </footer>
-  </body>
 
+    <div class="popup">
+      <div class="popup__container">
+        <img src="images/Close_Icon.svg" class="popup__close" alt="Кнопка закрытия окна">
+        <form method="post" action="#" name="popup" class="popup__form">
+          <h2 class="popup__title">Редактировать профиль</h2>
+          <input type="text" value="" name="name" placeholder="Имя" autocomplete="off" class="popup__input popup__name">
+          <input type="text" value="" name="text" placeholder="О себе" autocomplete="off" class="popup__input popup__text">
+          <input type="submit" class="popup__button" value="Сохранить" >
+        </form>
+      </div>
+    </div>
+
+  </body>
+  <script src="scripts/index.js"></script>
 </html>
