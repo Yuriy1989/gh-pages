@@ -1,4 +1,7 @@
 .profile__text {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
   font-size: 18px;
   font-weight: 400;
   font-style: normal;

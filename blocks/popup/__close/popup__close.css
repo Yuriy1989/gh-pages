@@ -1,9 +1,10 @@
 .popup__close {
-  position: relative;
-  left: 440px;
-  bottom: 40px;
-  width: 32px;
-  height: 32px;
+  position: absolute;
+  right: -40px;
+  top: -40px;
+  background: transparent;
+  border: 0;
+  padding: 0;
   cursor: pointer;
   transition: opacity 0.4s linear;
 }
