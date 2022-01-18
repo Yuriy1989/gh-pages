@@ -1,14 +1,14 @@
 .header {
   display: flex;
-  height: 74px;
+  padding-bottom: 41px;
   margin: 0 auto;
   margin-top: 45px;
-  border-bottom: 2px solid rgb(105, 104, 104);
+  border-bottom: 1px solid rgba(105, 104, 104, 0.7);
 }
 
 @media screen and (max-width: 1024px) {
   .header {
-    height: 56px;
+    padding-bottom: 31.6px;
     margin-top: 28px;
     padding-left: 27px;
   }

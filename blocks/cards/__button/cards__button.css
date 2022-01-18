@@ -1,0 +1,15 @@
+.cards__button {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  transition: opacity 0.4s linear;
+}
+
+.cards__button:hover {
+  opacity: 50%;
+}
+
+.cards__button:active {
+  background: url("images/Union.svg");
+}

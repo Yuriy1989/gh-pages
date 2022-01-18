@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <title>Mesto</title>
+    <title>Места России</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Простая страница по основам JS">
     <meta name="keywords" content="HTML, CSS, JS">
-    <meta name="author" content="Yurii Dudin">
+    <meta name="author" content="Юрий Дудин">
     <link rel="stylesheet" href="pages/index.css">
   </head>
 
@@ -16,61 +16,75 @@
     </header>
     <main>
       <section class="profile">
-        <div class="profile__avatar">
-          <img src="images/avatar.jpg" class="profile__image" alt="Жак-Ив Кусто в красной шапочке">
-        </div>
+        <img src="images/avatar.jpg" class="profile__image" alt="Жак-Ив Кусто в красной шапочке">
         <div class="profile__info">
           <h1 class="profile__title">Жак-Ив Кусто</h1>
-          <img src="images/edit_button.svg" class="profile__edit-button" alt="кнопка, по центру нарисован карандаш">
+          <button type="submit" name="edit_button" class="profile__edit-button">
+            <img src="images/edit_button.svg" alt="Кнопка, по центру нарисован карандаш" class="profile__edit-button-image">
+          </button>
           <p class="profile__text">Исследователь океанов</p>
         </div>
-        <picture class="profile__add-button">
-          <source srcset="images/add_button_768.svg" media="(max-width: 768px)">
-          <img src="images/add_button.svg" class="profile__add-button" alt="кнопка, по центру нарисован знак плюс">
-        </picture>
+        <button type="submit" name="profile__add-button" class="profile__add-button">
+          <picture>
+            <source srcset="images/add_button_768.svg" media="(max-width: 768px)">
+            <img src="images/add_button.svg" alt="Кнопка, по центру нарисован знак плюс">
+          </picture>
+        </button>
       </section>
       <section class="elements">
         <ul class="cards">
-          <li class="cards__title">
+          <li class="cards__item">
             <img src="images/Big-Bogdo.jpg" class="cards__image" alt="Гора красного цвета, окруженная кустами">
             <div class="cards__description">
               <h2 class="cards__text">Гора Большой Богдо, Астраханская область</h2>
-              <img src="images/heart.svg" class="cards__like" alt="Сердечко белого цвета с черной оконтовкой">
+              <button type="submit" name="button-like" class="cards__button">
+                <img src="images/heart.svg" class="cards__like" alt="Сердечко белого цвета с черной оконтовкой">
+              </button>
             </div>
           </li>
-          <li class="cards__title">
+          <li class="cards__item">
             <img src="images/charskie_peski.jpg" class="cards__image" alt="Песчаная пустыня среди ледников">
             <div class="cards__description">
               <h2 class="cards__text">Чарские пески, Забайкалье</h2>
-              <img src="images/heart.svg" class="cards__like" alt="Сердечко белого цвета с черной оконтовкой">
+              <button type="submit" name="button-like" class="cards__button">
+                <img src="images/heart.svg" class="cards__like" alt="Сердечко белого цвета с черной оконтовкой">
+              </button>
             </div>
           </li>
-          <li class="cards__title">
+          <li class="cards__item">
             <img src="images/vulkan_krenizyna.jpg" class="cards__image" alt="Вулкан окруженный озером, которое окружено горами">
             <div class="cards__description">
               <h2 class="cards__text">Вулкан Креницына, Курильские острова</h2>
-              <img src="images/heart.svg" class="cards__like" alt="Сердечко белого цвета с черной оконтовкой">
+              <button type="submit" name="button-like" class="cards__button">
+                <img src="images/heart.svg" class="cards__like" alt="Сердечко белого цвета с черной оконтовкой">
+              </button>
             </div>
           </li>
-          <li class="cards__title">
+          <li class="cards__item">
             <img src="images/ordinskaya_pesher.jpg" class="cards__image" alt="Двое мужиков плывут в пещере">
             <div class="cards__description">
               <h2 class="cards__text">Ординская пещера, Пермский край</h2>
-              <img src="images/heart.svg" class="cards__like" alt="Сердечко белого цвета с черной оконтовкой">
+              <button type="submit" name="button-like" class="cards__button">
+                <img src="images/heart.svg" class="cards__like" alt="Сердечко белого цвета с черной оконтовкой">
+              </button>
             </div>
           </li>
-          <li class="cards__title">
+          <li class="cards__item">
             <img src="images/shachta_mir.jpg" class="cards__image" alt="Огромный искуственный кратер">
             <div class="cards__description">
               <h2 class="cards__text">Алмазная шахта «Мир», Якутия</h2>
-              <img src="images/heart.svg" class="cards__like" alt="Сердечко белого цвета с черной оконтовкой">
+              <button type="submit" name="button-like" class="cards__button">
+                <img src="images/heart.svg" class="cards__like" alt="Сердечко белого цвета с черной оконтовкой">
+              </button>
             </div>
           </li>
-          <li class="cards__title">
+          <li class="cards__item">
             <img src="images/Ruskeala.jpg" class="cards__image" alt="Река окруженная горами">
             <div class="cards__description">
               <h2 class="cards__text">Мраморный каньон Рускеала, Карелия</h2>
-              <img src="images/heart.svg" class="cards__like" alt="Сердечко белого цвета с черной оконтовкой">
+              <button type="button" name="button-like" class="cards__button">
+                <img src="images/heart.svg" class="cards__like" alt="Сердечко белого цвета с черной оконтовкой">
+              </button>
             </div>
           </li>
         </ul>
@@ -83,12 +97,14 @@
 
     <div class="popup">
       <div class="popup__container">
-        <img src="images/Close_Icon.svg" class="popup__close" alt="Кнопка закрытия окна">
+        <button type="submit" name="close_button" class="popup__close">
+          <img src="images/Close_Icon.svg" alt="Кнопка закрытия окна">
+        </button>
         <form method="post" action="#" name="popup" class="popup__form">
           <h2 class="popup__title">Редактировать профиль</h2>
-          <input type="text" value="" name="name" autocomplete="off" class="popup__input popup__name">
-          <input type="text" value="" name="text" autocomplete="off" class="popup__input popup__text">
-          <input type="submit" class="popup__button" value="Сохранить" >
+          <input type="text" value="" name="name" autocomplete="off" class="popup__input popup__input_string_name" aria-labelledby="Имя">
+          <input type="text" value="" name="text" autocomplete="off" class="popup__input popup__input_string_text" aria-labelledby="Работа">
+          <input type="submit" class="popup__button" value="Сохранить" aria-labelledby="Кнопка сохранить">
         </form>
       </div>
     </div>
