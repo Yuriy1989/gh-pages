@@ -34,11 +34,11 @@ profileEditPopupButton.addEventListener('click', openPopup);
 
 popupCloseButton.addEventListener('click', closePopup);
 
-popup.addEventListener('mousedown', function(event) {
-  if(event.target === event.currentTarget) {
-    event.stopPropagation();
-    closePopup();
-  }
-});
+// popup.addEventListener('click', function(event) {
+//   if(event.target === event.currentTarget) {
+//     event.stopPropagation();
+//     closePopup();
+//   }
+// });
 
 formElement.addEventListener('submit', formSubmitHandler);
