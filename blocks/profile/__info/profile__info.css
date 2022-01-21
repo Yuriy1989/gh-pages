@@ -1,15 +1,12 @@
 .profile__info {
-  display: grid;
-  grid-template-columns: auto auto;
-  align-items: baseline;
-  gap: 16px 18px;
-  max-width: 336px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 @media screen and (max-width: 768px) {
   .profile__info {
     margin: 27px 0 33px 0;
-    gap: 7px 10px;
     padding: 0 10px;
   }
 }
