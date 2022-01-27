@@ -1,30 +1,39 @@
+let profileEditPopupButton = document.querySelector('.profile__edit-button');
+
+let popupCloseButton = document.querySelector('.popup__close');
+
+
+const templatePopup = document.querySelector('#popup').content;
+const page = document.querySelector('.page');
+
 const initialCards = [
   {
-    name: '1',
-    link: 'https://images.unsplash.com/photo-1600366777118-03bef1c26780?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTMzfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60'
+    name: 'Салоники - город на побережье залива Термаикос',
+    link: 'https://images.unsplash.com/photo-1630391886685-b3ef8d10de53'
   },
   {
-    name: '2',
-    link: 'https://images.unsplash.com/photo-1643041439799-1371ac80a1b8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8Mnx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60'
+    name: 'Таймс-сквер, Нью-Йорк',
+    link: 'https://images.unsplash.com/photo-1642873744568-a7c5f7d10aae'
   },
   {
-    name: '3',
-    link: 'https://images.unsplash.com/photo-1643041440473-d4a721b366f9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8NHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60'
+    name: 'Атрани, Италия',
+    link: 'https://images.unsplash.com/photo-1576875356666-988d2a13651c'
   },
   {
-    name: '4',
-    link: 'https://images.unsplash.com/photo-1642367321132-0d1c28d2ae66?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8Nnx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60'
+    name: 'Санкт-Антон-ам-Арльберг, Австрия',
+    link: 'https://images.unsplash.com/photo-1642712005967-a27db48c3bed'
   },
   {
-    name: '5',
-    link: 'https://images.unsplash.com/photo-1641665665631-ee1d959e5be3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MTZ8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60'
+    name: 'Мост Золотые Ворота, Сан-Франциско',
+    link: 'https://images.unsplash.com/photo-1610312278520-bcc893a3ff1d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1447&q=80'
   },
   {
-    name: '6',
-    link: 'https://images.unsplash.com/photo-1641226469620-16a914f597e3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MjR8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60'
+    name: 'Колизей или амфитеатр Флавиев, Рим',
+    link: 'https://images.unsplash.com/photo-1569343051392-7cf0a301baa9'
   }
 ];
 
+// Функция создания секции карточек
 function addSectionCards () {
   const sectionProfile = document.querySelector('.profile');
   const sectionElements = document.createElement('section');
@@ -35,38 +44,33 @@ function addSectionCards () {
   sectionProfile.after(sectionElements);
 }
 
-function addCard() {
+// Функция создания карточек из массива
+function addCard(item) {
   const cards = document.querySelector('.cards');
   const liCardItem = document.createElement('li');
   liCardItem.classList.add('cards__item');
   const imageCard = document.createElement('img');
   imageCard.classList.add('cards__image');
+  imageCard.setAttribute('src', `${item.link}`);
+  imageCard.setAttribute('alt', `${item.name}`);
   const divCardDescription = document.createElement('div');
   divCardDescription.classList.add('cards__description');
   const headerCardText = document.createElement('h2');
   headerCardText.classList.add('cards__text');
+  headerCardText.textContent = `${item.name}`;
   const buttonCardLike = document.createElement('button');
-  buttonCardLike.classList.add('cards__buttom');
+  buttonCardLike.classList.add('cards__button');
   const imageCardLike = document.createElement('img');
   imageCardLike.classList.add('cards__like');
+  imageCardLike.setAttribute('src', 'images/heart.svg');
+  imageCardLike.setAttribute('alt', 'Сердечко белого цвета с черной оконтовкой');
   buttonCardLike.append(imageCardLike);
   divCardDescription.append(headerCardText, buttonCardLike);
   liCardItem.append(imageCard, divCardDescription);
   cards.append(liCardItem);
 }
 
-addSectionCards();
-addCard ();
-
-let profileEditPopupButton = document.querySelector('.profile__edit-button');
-let popup = document.querySelector('.popup');
-let popupCloseButton = document.querySelector('.popup__close');
-let formElement = document.querySelector('.popup__form');
-let nameInput = document.querySelector('.popup__input_string_name');
-let jobInput = document.querySelector('.popup__input_string_text');
-let valueProfileTitle = document.querySelector('.profile__title');
-let valueProfileText = document.querySelector('.profile__text');
-
+// Функция открытия попапа
 function openPopup (event) {
   popup.classList.add('popup_opened');
   let textProfileTitle = valueProfileTitle.textContent;
@@ -75,10 +79,38 @@ function openPopup (event) {
   jobInput.value = textProfileText;
 }
 
-function closePopup () {
-  popup.classList.remove('popup_opened');
+// Функция открытия попапа для редактирования профиля
+function openPopupEditProfile (event) {
+  const userEditPopup = templatePopup.querySelector('.popup').cloneNode(true);
+  userEditPopup.querySelector('.popup__title').textContent = 'Редактировать профиль';
+  userEditPopup.querySelector('.popup__button').value = 'Сохранить';
+  userEditPopup.classList.add('popup_opened');
+
+  let valueProfileTitle = document.querySelector('.profile__title').textContent;
+  let valueProfileText = document.querySelector('.profile__text').textContent;
+
+  userEditPopup.querySelector('.popup__input_string_name').value = `${valueProfileTitle}`;
+  userEditPopup.querySelector('.popup__input_string_text').value = `${valueProfileText}`;
+  page.append(userEditPopup);
+
+  userEditPopup.querySelector('.popup__close').addEventListener('click', function(evn) {
+    closePopup();
+    console.log('test');
+  })
+
+  userEditPopup.querySelector('.popup__form').addEventListener('submit', function(evn) {
+    formSubmitHandler();
+  })
 }
 
+// Функция закрытия попапа
+function closePopup () {
+  const popup = document.querySelector('.popup');
+  popup.remove();
+  console.log('test2');
+}
+
+// Функция изменения имени и работы
 function formSubmitHandler (evt) {
   evt.preventDefault();
   let valuePopupName = nameInput.value;
@@ -90,9 +122,16 @@ function formSubmitHandler (evt) {
   closePopup();
 }
 
-profileEditPopupButton.addEventListener('click', openPopup);
+// Обработчики событий
+profileEditPopupButton.addEventListener('click', openPopupEditProfile);
+// formElement.addEventListener('submit', formSubmitHandler);
 
-popupCloseButton.addEventListener('click', closePopup);
+// создания секции карточек
+addSectionCards();
+
+// создания карточек
+initialCards.forEach(item => addCard(item));
+
 
 // popup.addEventListener('click', function(event) {
 //   if(event.target === event.currentTarget) {
@@ -100,5 +139,3 @@ popupCloseButton.addEventListener('click', closePopup);
 //     closePopup();
 //   }
 // });
-
-formElement.addEventListener('submit', formSubmitHandler);
