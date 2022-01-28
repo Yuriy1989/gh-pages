@@ -1,8 +1,5 @@
 let profileEditPopupButton = document.querySelector('.profile__edit-button');
-
 let popupCloseButton = document.querySelector('.popup__close');
-
-
 const templatePopup = document.querySelector('#popup').content;
 const page = document.querySelector('.page');
 
@@ -95,11 +92,11 @@ function openPopupEditProfile (event) {
 
   userEditPopup.querySelector('.popup__close').addEventListener('click', function(evn) {
     closePopup();
-    console.log('test');
   })
 
-  userEditPopup.querySelector('.popup__form').addEventListener('submit', function(evn) {
+  userEditPopup.querySelector('.popup__button').addEventListener('click', function(evn) {
     formSubmitHandler();
+    console.log('add function');
   })
 }
 
@@ -107,18 +104,22 @@ function openPopupEditProfile (event) {
 function closePopup () {
   const popup = document.querySelector('.popup');
   popup.remove();
-  console.log('test2');
 }
 
 // Функция изменения имени и работы
 function formSubmitHandler (evt) {
-  evt.preventDefault();
-  let valuePopupName = nameInput.value;
-  let valuePopupText = jobInput.value;
+  // evt.preventDefault();
+  const userEditPopup = templatePopup.querySelector('.popup');
 
-  valueProfileTitle.textContent = valuePopupName;
-  valueProfileText.textContent= valuePopupText;
+  let valueProfileTitle = document.querySelector('.profile__title').textContent;
+  let valueProfileText = document.querySelector('.profile__text').textContent;
 
+  valueProfileTitle = document.querySelector('.popup__input_string_name').value;
+
+  // document.querySelector('.profile__title').textContent =  userEditPopup.querySelector('.popup__input_string_name').value;
+  // document.querySelector('.profile__text').textContent = userEditPopup.querySelector('.popup__input_string_text').value
+
+  console.log('add text');
   closePopup();
 }
 
