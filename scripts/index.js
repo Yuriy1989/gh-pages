@@ -109,23 +109,18 @@ function closePopup () {
 // Функция изменения имени и работы
 function formSubmitHandler (evt) {
   // evt.preventDefault();
-  const userEditPopup = templatePopup.querySelector('.popup');
 
-  let valueProfileTitle = document.querySelector('.profile__title').textContent;
+  let valueProfileTitle = document.querySelector('.profile__title');
   let valueProfileText = document.querySelector('.profile__text').textContent;
 
-  valueProfileTitle = document.querySelector('.popup__input_string_name').value;
+  valueProfileTitle.textContent = document.querySelector('.popup__input_string_name').value;
+  valueProfileText.textContent = document.querySelector('.popup__input_string_text').value;
 
-  // document.querySelector('.profile__title').textContent =  userEditPopup.querySelector('.popup__input_string_name').value;
-  // document.querySelector('.profile__text').textContent = userEditPopup.querySelector('.popup__input_string_text').value
-
-  console.log('add text');
   closePopup();
 }
 
 // Обработчики событий
 profileEditPopupButton.addEventListener('click', openPopupEditProfile);
-// formElement.addEventListener('submit', formSubmitHandler);
 
 // создания секции карточек
 addSectionCards();
