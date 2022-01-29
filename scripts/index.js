@@ -1,5 +1,5 @@
-let profileEditPopupButton = document.querySelector('.profile__edit-button');
-let popupCloseButton = document.querySelector('.popup__close');
+const profileEditPopupButton = document.querySelector('.profile__edit-button');
+const profileAddCardsButton = document.querySelector('.profile__add-button');
 const templatePopup = document.querySelector('#popup').content;
 const page = document.querySelector('.page');
 
@@ -64,7 +64,7 @@ function addCard(item) {
   buttonCardLike.append(imageCardLike);
   divCardDescription.append(headerCardText, buttonCardLike);
   liCardItem.append(imageCard, divCardDescription);
-  cards.append(liCardItem);
+  cards.prepend(liCardItem);
 }
 
 // Функция открытия попапа
@@ -78,6 +78,7 @@ function openPopup (event) {
 
 // Функция открытия попапа для редактирования профиля
 function openPopupEditProfile (event) {
+  event.preventDefault();
   const userEditPopup = templatePopup.querySelector('.popup').cloneNode(true);
   userEditPopup.querySelector('.popup__title').textContent = 'Редактировать профиль';
   userEditPopup.querySelector('.popup__button').value = 'Сохранить';
@@ -85,19 +86,60 @@ function openPopupEditProfile (event) {
 
   let valueProfileTitle = document.querySelector('.profile__title').textContent;
   let valueProfileText = document.querySelector('.profile__text').textContent;
-
-  userEditPopup.querySelector('.popup__input_string_name').value = `${valueProfileTitle}`;
-  userEditPopup.querySelector('.popup__input_string_text').value = `${valueProfileText}`;
   page.append(userEditPopup);
 
-  userEditPopup.querySelector('.popup__close').addEventListener('click', function(evn) {
-    closePopup();
-  })
+  const popupInputStringName = document.createElement('input');
+  popupInputStringName.setAttribute('type', 'text');
+  popupInputStringName.setAttribute('name', 'name');
+  popupInputStringName.setAttribute('autocomplete', 'off');
+  popupInputStringName.setAttribute('value', `${valueProfileTitle}`);
+  popupInputStringName.classList.add('popup__input', 'popup__input_string_name');
 
-  userEditPopup.querySelector('.popup__button').addEventListener('click', function(evn) {
-    formSubmitHandler();
-    console.log('add function');
-  })
+  const popupInputStringText = document.createElement('input');
+  popupInputStringText.setAttribute('type', 'text');
+  popupInputStringText.setAttribute('name', 'text');
+  popupInputStringText.setAttribute('autocomplete', 'off');
+  popupInputStringText.setAttribute('value', `${valueProfileText}`);
+  popupInputStringText.classList.add('popup__input', 'popup__input_string_text');
+
+  const headerPopup = document.querySelector('.popup__title');
+  headerPopup.after(popupInputStringName);
+  popupInputStringName.after(popupInputStringText);
+
+  userEditPopup.querySelector('.popup__close').addEventListener('click', closePopup);
+  userEditPopup.querySelector('.popup__form').addEventListener('submit', formSubmitHandler);
+}
+
+// Функция открытия попапа для добавления карточек
+function openPopupAddCards (event) {
+  event.preventDefault();
+  const addCardPopup = templatePopup.querySelector('.popup').cloneNode(true);
+  addCardPopup.querySelector('.popup__title').textContent = 'Новое место';
+  addCardPopup.querySelector('.popup__button').value = 'Создать';
+  addCardPopup.classList.add('popup_opened');
+
+  page.append(addCardPopup);
+
+  const popupInputStringNameCard = document.createElement('input');
+  popupInputStringNameCard.setAttribute('type', 'text');
+  popupInputStringNameCard.setAttribute('name', 'name');
+  popupInputStringNameCard.setAttribute('autocomplete', 'off');
+  popupInputStringNameCard.setAttribute('placeholder', 'Название');
+  popupInputStringNameCard.classList.add('popup__input', 'popup__input_string_name');
+
+  const popupInputStringLink = document.createElement('input');
+  popupInputStringLink.setAttribute('type', 'text');
+  popupInputStringLink.setAttribute('name', 'text');
+  popupInputStringLink.setAttribute('autocomplete', 'off');
+  popupInputStringLink.setAttribute('placeholder', 'Ссылка на картинку');
+  popupInputStringLink.classList.add('popup__input', 'popup__input_string_text');
+
+  const headerPopup = document.querySelector('.popup__title');
+  headerPopup.after(popupInputStringNameCard);
+  popupInputStringNameCard.after(popupInputStringLink);
+
+  addCardPopup.querySelector('.popup__close').addEventListener('click', closePopup);
+  addCardPopup.querySelector('.popup__form').addEventListener('submit', addCardformSubmitHandler);
 }
 
 // Функция закрытия попапа
@@ -106,12 +148,10 @@ function closePopup () {
   popup.remove();
 }
 
-// Функция изменения имени и работы
+// Функция изменения имени и текста
 function formSubmitHandler (evt) {
-  // evt.preventDefault();
-
   let valueProfileTitle = document.querySelector('.profile__title');
-  let valueProfileText = document.querySelector('.profile__text').textContent;
+  let valueProfileText = document.querySelector('.profile__text');
 
   valueProfileTitle.textContent = document.querySelector('.popup__input_string_name').value;
   valueProfileText.textContent = document.querySelector('.popup__input_string_text').value;
@@ -119,8 +159,29 @@ function formSubmitHandler (evt) {
   closePopup();
 }
 
+// Функция добавления карточки
+function addCardformSubmitHandler (evt) {
+  let valueProfileTitle =  document.querySelector('.popup__input_string_name').value;;
+  let valueProfileText = document.querySelector('.popup__input_string_text').value;
+
+  console.log(valueProfileTitle);
+
+  let addCardItem = {
+    name : `${valueProfileTitle}`,
+    link: `${valueProfileText}`
+  };
+
+  addCard(addCardItem);
+  closePopup();
+}
+
+function deleteCard (evt) {
+  console.log('delete card');
+}
+
 // Обработчики событий
 profileEditPopupButton.addEventListener('click', openPopupEditProfile);
+profileAddCardsButton.addEventListener('click', openPopupAddCards);
 
 // создания секции карточек
 addSectionCards();
