@@ -34,6 +34,21 @@
       <p class="footer__copyright">2022 Mesto Russia</p>
     </footer>
 
+    <template id="card">
+      <li class="cards__item">
+        <img src="" alt="" class="cards__image">
+        <button type="button" name="button-delete" class="cards__button-delete">
+          <img src="images/Trash.svg" alt="Урна" class="cards__delete">
+        </button>
+        <div class="cards__description">
+          <h2 class="cards__text"></h2>
+          <button type="button" name="button-like" class="cards__button">
+            <img src="images/heart.svg" alt="Сердечко белого цвета с черной оконтовкой" class="cards__like">
+          </button>
+        </div>
+      </li>
+    </template>
+
     <template id="popup">
       <div class="popup">
         <div class="popup__container">
@@ -44,6 +59,18 @@
             <h2 class="popup__title"></h2>
             <input type="submit" class="popup__button" value="">
           </form>
+        </div>
+      </div>
+    </template>
+
+    <template id="image-open-popup">
+      <div class="popup">
+        <div class="popup__container-image">
+          <button type="button" name="close_button" class="popup__close">
+            <img src="images/Close_Icon.svg" class="popup__close-image" alt="Кнопка закрытия окна">
+          </button>
+          <img src="" class="popup__image" alt="">
+          <h2 class="popup__header"></h2>
         </div>
       </div>
     </template>
