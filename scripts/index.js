@@ -1,24 +1,25 @@
 const profileEditPopupButton = document.querySelector('.profile__edit-button');
 const profileAddCardsButton = document.querySelector('.profile__add-button');
+
 const templatePopup = document.querySelector('#popup').content;
 const page = document.querySelector('.page');
 
 const initialCards = [
   {
     name: 'Салоники - город на побережье залива Термаикос',
-    link: 'https://images.unsplash.com/photo-1630391886685-b3ef8d10de53'
+    link: 'https://images.unsplash.com/photo-1630391886685-b3ef8d10de53?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1447&q=80'
   },
   {
     name: 'Таймс-сквер, Нью-Йорк',
-    link: 'https://images.unsplash.com/photo-1642873744568-a7c5f7d10aae'
+    link: 'https://images.unsplash.com/photo-1642873744568-a7c5f7d10aae?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1447&q=80'
   },
   {
     name: 'Атрани, Италия',
-    link: 'https://images.unsplash.com/photo-1576875356666-988d2a13651c'
+    link: 'https://images.unsplash.com/photo-1576875356666-988d2a13651c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1447&q=80'
   },
   {
     name: 'Санкт-Антон-ам-Арльберг, Австрия',
-    link: 'https://images.unsplash.com/photo-1642712005967-a27db48c3bed'
+    link: 'https://images.unsplash.com/photo-1642712005967-a27db48c3bed?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1447&q=80'
   },
   {
     name: 'Мост Золотые Ворота, Сан-Франциско',
@@ -26,7 +27,7 @@ const initialCards = [
   },
   {
     name: 'Колизей или амфитеатр Флавиев, Рим',
-    link: 'https://images.unsplash.com/photo-1569343051392-7cf0a301baa9'
+    link: 'https://images.unsplash.com/photo-1569343051392-7cf0a301baa9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1447&q=80'
   }
 ];
 
@@ -46,25 +47,50 @@ function addCard(item) {
   const cards = document.querySelector('.cards');
   const liCardItem = document.createElement('li');
   liCardItem.classList.add('cards__item');
+
   const imageCard = document.createElement('img');
   imageCard.classList.add('cards__image');
   imageCard.setAttribute('src', `${item.link}`);
   imageCard.setAttribute('alt', `${item.name}`);
+
+  const buttonCardDelete = document.createElement('button');
+  buttonCardDelete.classList.add('cards__button-delete');
+  buttonCardDelete.setAttribute('type', 'button');
+  buttonCardDelete.setAttribute('name', 'button-delete');
+
+  const imageCardDelete = document.createElement('img');
+  imageCardDelete.classList.add('cards__delete');
+  imageCardDelete.setAttribute('src', 'images/Trash.svg');
+  imageCardDelete.setAttribute('alt', 'Урна');
+
   const divCardDescription = document.createElement('div');
   divCardDescription.classList.add('cards__description');
+
   const headerCardText = document.createElement('h2');
   headerCardText.classList.add('cards__text');
   headerCardText.textContent = `${item.name}`;
+
   const buttonCardLike = document.createElement('button');
   buttonCardLike.classList.add('cards__button');
+  buttonCardLike.setAttribute('type', 'button');
+  buttonCardLike.setAttribute('name', 'button-like');
+
   const imageCardLike = document.createElement('img');
   imageCardLike.classList.add('cards__like');
   imageCardLike.setAttribute('src', 'images/heart.svg');
   imageCardLike.setAttribute('alt', 'Сердечко белого цвета с черной оконтовкой');
+
   buttonCardLike.append(imageCardLike);
+  buttonCardDelete.append(imageCardDelete);
   divCardDescription.append(headerCardText, buttonCardLike);
-  liCardItem.append(imageCard, divCardDescription);
+  liCardItem.append(imageCard, buttonCardDelete, divCardDescription);
   cards.prepend(liCardItem);
+
+  const deleteCardButton = document.querySelector('.cards__button-delete');
+  deleteCardButton.addEventListener('click', deleteCard);
+
+  const likeCardButton = document.querySelector('.cards__button');
+  likeCardButton.addEventListener('click', likeCard);
 }
 
 // Функция открытия попапа
@@ -111,8 +137,8 @@ function openPopupEditProfile (event) {
 }
 
 // Функция открытия попапа для добавления карточек
-function openPopupAddCards (event) {
-  event.preventDefault();
+function openPopupAddCards (evt) {
+  evt.preventDefault();
   const addCardPopup = templatePopup.querySelector('.popup').cloneNode(true);
   addCardPopup.querySelector('.popup__title').textContent = 'Новое место';
   addCardPopup.querySelector('.popup__button').value = 'Создать';
@@ -175,8 +201,19 @@ function addCardformSubmitHandler (evt) {
   closePopup();
 }
 
+// Функция удаления карточки
 function deleteCard (evt) {
-  console.log('delete card');
+  evt.target.closest('.cards__item').remove();
+}
+
+// Функция лайка карточки
+function likeCard (evt) {
+  let imgLikeCard = evt.target.getAttribute('src');
+  if (imgLikeCard == 'images/heart.svg') {
+    evt.target.setAttribute('src', 'images/Union.svg');
+  } else {
+    evt.target.setAttribute('src', 'images/heart.svg');
+  }
 }
 
 // Обработчики событий
@@ -188,11 +225,3 @@ addSectionCards();
 
 // создания карточек
 initialCards.forEach(item => addCard(item));
-
-
-// popup.addEventListener('click', function(event) {
-//   if(event.target === event.currentTarget) {
-//     event.stopPropagation();
-//     closePopup();
-//   }
-// });
