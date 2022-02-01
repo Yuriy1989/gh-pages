@@ -1,0 +1,12 @@
+.popup__header {
+  font-size: 12px;
+  line-height: 15px;
+  font-weight: 400;
+  text-align: left;
+  vertical-align: top;
+  color: #fff;
+  margin: 10px 0 0 0;
+  /* text-overflow: ellipsis; */
+  /* white-space: nowrap; */
+  /* overflow: hidden; */
+}
