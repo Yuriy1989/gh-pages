@@ -1,8 +1,9 @@
 const profileEditPopupButton = document.querySelector('.profile__edit-button');
 const profileAddCardsButton = document.querySelector('.profile__add-button');
-const templatePopup = document.querySelector('#popup').content;
+const popupEditProfile = document.querySelector('.popup_edit-profile');
+const popupAddCard = document.querySelector('.popup_add-card');
+const popupOpenCard = document.querySelector('.popup_card-open');
 const templateCard = document.querySelector('#card').content;
-const templateOpenCard = document.querySelector('#image-open-popup').content;
 const page = document.querySelector('.page');
 
 const initialCards = [
@@ -70,128 +71,93 @@ function addCard(item) {
 }
 
 // Функция открытия попапа для редактирования профиля
-function openPopupEditProfile (event) {
-  event.preventDefault();
-  const userEditPopup = templatePopup.querySelector('.popup').cloneNode(true);
-  userEditPopup.querySelector('.popup__title').textContent = 'Редактировать профиль';
-  userEditPopup.querySelector('.popup__button').value = 'Сохранить';
-  userEditPopup.classList.add('popup_opened');
+function openPopupEditProfile () {
+  popupEditProfile.querySelector('.popup__form').classList.add('popup__form-edit-profile');
+  popupEditProfile.classList.add('popup__opened');
 
   let valueProfileTitle = document.querySelector('.profile__title').textContent;
   let valueProfileText = document.querySelector('.profile__text').textContent;
-  page.append(userEditPopup);
+  let valueProfileNamePopup = popupEditProfile.querySelector('.popup__input_string_name');
+  let valueProfileTextPopup = popupEditProfile.querySelector('.popup__input_string_text');
 
-  const popupInputStringName = document.createElement('input');
-    popupInputStringName.setAttribute('type', 'text');
-    popupInputStringName.setAttribute('name', 'name');
-    popupInputStringName.setAttribute('autocomplete', 'off');
-    popupInputStringName.setAttribute('value', `${valueProfileTitle}`);
-    popupInputStringName.classList.add('popup__input', 'popup__input_string_name');
+  valueProfileNamePopup.setAttribute('value', `${valueProfileTitle}`);
+  valueProfileTextPopup.setAttribute('value', `${valueProfileText}`);
 
-  const popupInputStringText = document.createElement('input');
-    popupInputStringText.setAttribute('type', 'text');
-    popupInputStringText.setAttribute('name', 'text');
-    popupInputStringText.setAttribute('autocomplete', 'off');
-    popupInputStringText.setAttribute('value', `${valueProfileText}`);
-    popupInputStringText.classList.add('popup__input', 'popup__input_string_text');
-
-  const headerPopup = document.querySelector('.popup__title');
-  headerPopup.after(popupInputStringName);
-  popupInputStringName.after(popupInputStringText);
-
-  userEditPopup.querySelector('.popup__close').addEventListener('click', closePopup);
-  userEditPopup.querySelector('.popup__form').addEventListener('submit', formSubmitHandler);
+  popupEditProfile.querySelector('.popup__close').addEventListener('click', closePopup);
+  popupEditProfile.querySelector('.popup__form-edit-profile').addEventListener('submit', formSubmitHandler);
 }
 
 // Функция открытия попапа для добавления карточек
 function openPopupAddCards (evt) {
-  evt.preventDefault();
-  const addCardPopup = templatePopup.querySelector('.popup').cloneNode(true);
+  let valueProfileNamePopup = popupAddCard.querySelector('.popup__input_string_name');
+  let valueProfileTextPopup = popupAddCard.querySelector('.popup__input_string_text');
+  valueProfileNamePopup.setAttribute('value', '');
+  valueProfileTextPopup.setAttribute('value', '');
 
-  addCardPopup.querySelector('.popup__title').textContent = 'Новое место';
-  addCardPopup.querySelector('.popup__button').value = 'Создать';
-  addCardPopup.classList.add('popup_opened');
+  popupAddCard.querySelector('.popup__form').classList.add('popup__form-add-card');
+  popupAddCard.classList.add('popup__opened');
 
-  page.append(addCardPopup);
-
-  const popupInputStringNameCard = document.createElement('input');
-    popupInputStringNameCard.setAttribute('type', 'text');
-    popupInputStringNameCard.setAttribute('name', 'name');
-    popupInputStringNameCard.setAttribute('autocomplete', 'off');
-    popupInputStringNameCard.setAttribute('placeholder', 'Название');
-    popupInputStringNameCard.classList.add('popup__input', 'popup__input_string_name');
-
-  const popupInputStringLink = document.createElement('input');
-    popupInputStringLink.setAttribute('type', 'text');
-    popupInputStringLink.setAttribute('name', 'text');
-    popupInputStringLink.setAttribute('autocomplete', 'off');
-    popupInputStringLink.setAttribute('placeholder', 'Ссылка на картинку');
-    popupInputStringLink.classList.add('popup__input', 'popup__input_string_text');
-
-  const headerPopup = document.querySelector('.popup__title');
-  headerPopup.after(popupInputStringNameCard);
-  popupInputStringNameCard.after(popupInputStringLink);
-
-  addCardPopup.querySelector('.popup__close').addEventListener('click', closePopup);
-  addCardPopup.querySelector('.popup__form').addEventListener('submit', addCardformSubmitHandler);
+  popupAddCard.querySelector('.popup__close').addEventListener('click', closePopup);
+  popupAddCard.querySelector('.popup__form-add-card').addEventListener('submit', addCardformSubmitHandler);
 }
 
 // Функция закрытия попапа
-function closePopup () {
-  const popup = document.querySelector('.popup');
-  popup.classList.toggle('popup_opened');
-  setTimeout(remove, 500);
-}
-
-function remove () {
-  const popup = document.querySelector('.popup');
-  popup.remove();
+function closePopup (evt) {
+  console.log('closePopup');
+  if (evt.target.closest('.popup').classList.contains('popup_edit-profile')) {
+    const popup = document.querySelector('.popup_edit-profile');
+    popup.classList.toggle("popup__opened");
+    console.log('close Profile Cards');
+  } else if (evt.target.closest('.popup').classList.contains('popup_add-card')) {
+    const popup = document.querySelector('.popup_add-card');
+    popup.classList.toggle("popup__opened");
+  } else {
+    const popup = document.querySelector('.popup_card-open');
+    popup.classList.toggle("popup__opened");
+  }
 }
 
 // Функция изменения имени и текста
 function formSubmitHandler (evt) {
+  evt.preventDefault();
   let valueProfileTitle = document.querySelector('.profile__title');
   let valueProfileText = document.querySelector('.profile__text');
 
-  valueProfileTitle.textContent = document.querySelector('.popup__input_string_name').value;
-  valueProfileText.textContent = document.querySelector('.popup__input_string_text').value;
-
-  closePopup();
+  valueProfileTitle.textContent = popupEditProfile.querySelector('.popup__input_string_name').value;
+  valueProfileText.textContent = popupEditProfile.querySelector('.popup__input_string_text').value;
+  closePopup(evt);
 }
 
 // Функция добавления карточки
 function addCardformSubmitHandler (evt) {
-  let valueProfileTitle =  document.querySelector('.popup__input_string_name').value;;
-  let valueProfileText = document.querySelector('.popup__input_string_text').value;
-
-  console.log(valueProfileTitle);
+  evt.preventDefault();
+  let valueProfileTitle =  popupAddCard.querySelector('.popup__input_string_name').value;
+  let valueProfileText = popupAddCard.querySelector('.popup__input_string_text').value;
 
   let addCardItem = {
     name : `${valueProfileTitle}`,
     link: `${valueProfileText}`
   };
 
+  popupAddCard.querySelector('.popup__input_string_name').value = '';
+  popupAddCard.querySelector('.popup__input_string_text').value = '';
+
   addCard(addCardItem);
-  closePopup();
+  closePopup(evt);
 }
 
 // Функция открытия карточки
 function openCard (evt) {
-  evt.preventDefault();
-
   let imgCard = evt.target.getAttribute('src');
   let headerCard = evt.target.getAttribute('alt');
 
-  const openCardPopup = templateOpenCard.querySelector('.popup').cloneNode(true);
-  const itemCard = openCardPopup.querySelector('.popup__image');
+  const itemCard = popupOpenCard.querySelector('.popup__image');
   itemCard.setAttribute('src' , `${imgCard}`);
-  let popupHeader = openCardPopup.querySelector('.popup__header').textContent = `${headerCard}`;
+  let popupHeader = popupOpenCard.querySelector('.popup__header').textContent = `${headerCard}`;
 
+  popupOpenCard.classList.add('popup__opened');
 
-  page.append(openCardPopup);
-  setTimeout(() => openCardPopup.classList.toggle('popup_opened'));
-
-  openCardPopup.querySelector('.popup__close').addEventListener('click', closePopup);
+  popupOpenCard.querySelector('.popup__close').addEventListener('click', closePopup);
 }
 
 // Функция удаления карточки

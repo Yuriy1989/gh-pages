@@ -1,0 +1,6 @@
+.popup__opened {
+  z-index: 10;
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s, 0s, 0s;
+}
