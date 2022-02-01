@@ -69,15 +69,6 @@ function addCard(item) {
   openImageCard.addEventListener('click', openCard);
 }
 
-// Функция открытия попапа
-function openPopup (event) {
-  popup.classList.add('popup_opened');
-  let textProfileTitle = valueProfileTitle.textContent;
-  let textProfileText = valueProfileText.textContent;
-  nameInput.value = textProfileTitle;
-  jobInput.value = textProfileText;
-}
-
 // Функция открытия попапа для редактирования профиля
 function openPopupEditProfile (event) {
   event.preventDefault();
@@ -148,6 +139,12 @@ function openPopupAddCards (evt) {
 // Функция закрытия попапа
 function closePopup () {
   const popup = document.querySelector('.popup');
+  popup.classList.toggle('popup_opened');
+  setTimeout(remove, 500);
+}
+
+function remove () {
+  const popup = document.querySelector('.popup');
   popup.remove();
 }
 
@@ -190,7 +187,9 @@ function openCard (evt) {
   itemCard.setAttribute('src' , `${imgCard}`);
   let popupHeader = openCardPopup.querySelector('.popup__header').textContent = `${headerCard}`;
 
+
   page.append(openCardPopup);
+  setTimeout(() => openCardPopup.classList.toggle('popup_opened'));
 
   openCardPopup.querySelector('.popup__close').addEventListener('click', closePopup);
 }
