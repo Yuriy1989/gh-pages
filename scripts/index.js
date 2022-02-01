@@ -126,6 +126,7 @@ function openCard (evt) {
 
   const itemCard = popupOpenCard.querySelector('.popup__image');
   itemCard.setAttribute('src' , `${imgCard}`);
+  itemCard.setAttribute('alt' , `${headerCard}`);
   popupOpenCard.querySelector('.popup__header').textContent = `${headerCard}`;
 
   popupOpenCard.classList.add('popup_opened');
