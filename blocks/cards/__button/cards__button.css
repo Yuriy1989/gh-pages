@@ -1,9 +1,10 @@
 .cards__button {
-  background: transparent;
+  background: transparent url(../../../images/heart.svg) no-repeat center;
   border: 0;
-  padding: 0;
+  padding: 9.5px 11px;
   margin: 0;
   transition: opacity 0.4s linear;
+  cursor: pointer;
 }
 
 .cards__button:hover {
