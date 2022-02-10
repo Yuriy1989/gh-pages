@@ -15,5 +15,14 @@ function enableValidation () {
 }
 
 formInput.addEventListener('input', (evt) => {
+  isValid();
   console.log(evt.target.validity.valid);
 });
+
+const isValid = () => {
+  if(!formInput.validity.valid) {
+    console.log('Ошибка валидации');
+  } else {
+    console.log('Ошибок нет');
+  }
+}

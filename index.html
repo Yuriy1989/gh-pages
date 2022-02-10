@@ -56,12 +56,12 @@
           <button type="button" name="close_button" class="popup__close">
             <img src="images/Close_Icon.svg" class="popup__close-image" alt="Кнопка закрытия окна">
           </button>
-          <form method="post" action="#" name="popup" class="popup__form popup__form_edit-profile" nodalidation>
+          <form method="post" action="#" name="popup" class="popup__form popup__form_edit-profile" novalidate>
             <h2 class="popup__title">Редактировать профиль</h2>
-            <input type="text" autocomplete="off" name="name" value="" class="popup__input popup__input_string-name" required>
-            <span></span>
-            <input type="text" autocomplete="off" name="text" value="" class="popup__input popup__input_string-text" required>
-            <span></span>
+            <input id="name-input" type="text" autocomplete="off" name="name" value="" class="popup__input popup__input_string-name" required>
+            <span class="name-input-error form__input-error"></span>
+            <input id="text-input" type="text" autocomplete="off" name="text" value="" class="popup__input popup__input_string-text" required>
+            <span class="text-input-error form__input-error"></span>
             <input type="submit" class="popup__button" value="Сохранить">
           </form>
         </div>
@@ -72,12 +72,12 @@
           <button type="button" name="close_button" class="popup__close">
             <img src="images/Close_Icon.svg" class="popup__close-image" alt="Кнопка закрытия окна">
           </button>
-          <form method="post" action="#" name="popup" class="popup__form popup__form_add-card" novalidation>
+          <form method="post" action="#" name="popup" class="popup__form popup__form_add-card" novalidate>
             <h2 class="popup__title">Новое место</h2>
-            <input type="text" autocomplete="off" placeholder="Название" name="name" value="" class="popup__input popup__input_string-name"required minlength="2" maxlength="30">
-            <span></span>
-            <input type="url" autocomplete="off" placeholder="Ссылка на картинку" name="text" value="" class="popup__input popup__input_string-text" required>
-            <span></span>
+            <input id="text-card-input" type="text" autocomplete="off" placeholder="Название" name="name" value="" class="popup__input popup__input_string-name" required minlength="2" maxlength="30">
+            <span class="text-card-input-error form__input-error"></span>
+            <input id="url-card-input" type="url" autocomplete="off" placeholder="Ссылка на картинку" name="text" value="" class="popup__input popup__input_string-text" required>
+            <span class="url-card-input-error form__input-error"></span>
             <input type="submit" class="popup__button" value="Создать">
           </form>
         </div>
