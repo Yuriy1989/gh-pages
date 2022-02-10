@@ -1,0 +1,10 @@
+.popup__error-text {
+ font-size: 12px;
+ line-height: 15px;
+ font-weight: 400;
+ color: #f00;
+ padding: 0;
+ display: none;
+ margin-bottom: 20px;
+ width: 358px;
+}
