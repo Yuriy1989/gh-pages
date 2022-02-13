@@ -8,3 +8,10 @@
  margin-bottom: 20px;
  width: 358px;
 }
+
+
+@media screen and (max-width: 768px) {
+  .popup__error-text {
+    width: 238px;
+  }
+}

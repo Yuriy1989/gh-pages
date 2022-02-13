@@ -19,7 +19,3 @@
     height: 27px;
   }
 }
-
-.popup__input:invalid {
-  border-color: rgba(255, 0, 0, 1);
-}

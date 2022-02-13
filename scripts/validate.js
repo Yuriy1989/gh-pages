@@ -1,73 +1,76 @@
-// const formInput = document.querySelector('.popup__input');
-
-
-//Функция включения валидации форм
-// function enableValidation () {
-//   enableValidation({
-//     formSelector: '.popup__form',
-//     inputSelector: '.popup__input',
-//     submitButtonSelector: '.popup__button',
-//     inactiveButtonClass: 'popup__button_disabled',
-//     inputErrorClass: 'popup__input_type_error',
-//     errorClass: 'popup__error_visible'
-//   });
-// }
-
-const isValid = (formElement, inputElement) => {
-  console.log("функция проверки каждого INPUT");
-  console.log(formElement + inputElement);
-
+//Функция проверки input по заданным параметрам
+const isValid = (formElement, inputElement, itemsValidation) => {
   if(!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage);
-    console.log('Ошибка валидации');
+    showInputError(formElement, inputElement, inputElement.validationMessage, itemsValidation);
   } else {
-    hideInputError(formElement, inputElement);
-    console.log('Ошибок нет');
+    hideInputError(formElement, inputElement, itemsValidation);
   }
 }
 
-const showInputError = (formElement, inputElement, errorMessage) => {
-  console.log(formElement);
-  console.log(inputElement.id + '-error');
+//Функция включения информация об ошибке
+const showInputError = (formElement, inputElement, errorMessage, itemsValidation) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  console.log('Открытие текста ошибки' + errorElement);
-  errorElement.classList.add('popup__input-error');
+  inputElement.classList.add(itemsValidation.inputErrorClass);
+  errorElement.classList.add(itemsValidation.errorClass);
   errorElement.textContent = errorMessage;
 }
 
-const hideInputError = (formElement, inputElement) => {
+//Функция отключения информация об ошибке
+const hideInputError = (formElement, inputElement, itemsValidation) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  errorElement.classList.remove('popup__input-error');
+  errorElement.classList.remove(itemsValidation.errorClass);
+  inputElement.classList.remove(itemsValidation.inputErrorClass);
 }
 
-const setEventListener = (formElement) => {
-  console.log("функция перебора всех элементов по всем формам");
-  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
-  console.log("Все input элементы в данной форме " + inputList);
+//Функция проверки хотябы одного невалидного поля для блокировки кнопки submit
+const hasInvalidInput = (inputList) => {
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid;
+  });
+}
+
+//Функц отключения кнопки
+const disableButton = (buttonElement, itemsValidation) => {
+  buttonElement.setAttribute('disabled', '');
+  buttonElement.classList.add(itemsValidation.inactiveButtonClass);
+}
+
+//Функция включения кнопки
+const activateButton = (buttonElement, itemsValidation) => {
+  buttonElement.removeAttribute('disabled', '');
+  buttonElement.classList.remove(itemsValidation.inactiveButtonClass)
+}
+
+//Функция включения и отключения кнопки sumbit в popup
+const toggleButtonState = (inputList, buttonElement, itemsValidation) => {
+  if (hasInvalidInput(inputList)) {
+    disableButton(buttonElement, itemsValidation);
+  } else {
+    activateButton(buttonElement, itemsValidation);
+  }
+}
+
+//Функция сбора всех input
+const setEventListener = (formElement, itemsValidation) => {
+  const inputList = Array.from(formElement.querySelectorAll(itemsValidation.inputSelector));
+  const buttonElement = formElement.querySelector(itemsValidation.submitButtonSelector);
+  toggleButtonState(inputList, buttonElement, itemsValidation);
   inputList.forEach( (inputElement) => {
     inputElement.addEventListener('input', () => {
-      isValid(formElement, inputElement);
+      isValid(formElement, inputElement, itemsValidation);
+      toggleButtonState(inputList, buttonElement, itemsValidation);
     })
   });
 }
 
-const enableValidation = () => {
-  console.log("функция сбора всех форм");
-  const formLists = Array.from(document.querySelectorAll('.popup__form'));
-  console.log("массив форм" + formLists);
+//Функция сбора всех форм на страничке
+const enableValidation = (itemsValidation) => {
+  const formLists = Array.from(document.querySelectorAll(itemsValidation.formSelector));
   formLists.forEach((formElement) => {
-    console.log("каждая форма по отдельности" + formElement);
     formElement.addEventListener('submit', (evt) => {
       evt.preventDefault();
     });
-    setEventListener(formElement);
+    setEventListener(formElement, itemsValidation);
   });
 };
 
-enableValidation();
-
-
-// formElement.addEventListener('input', (evt) => {
-//   isValid();
-//   console.log(evt.target.validity.valid);
-// });

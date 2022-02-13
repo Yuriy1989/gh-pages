@@ -94,6 +94,22 @@ function openCard (item) {
 
 //Функция открытия попапов
 function openPopup (popup) {
+
+  //Функцию валидации запускаю при открытии попапа, т.к. если запустить ее из файла Validate.js, происходит баг,
+  //а именно при открытии Popup для редактирования профиля, валидор проверяет пустные значения input и кнопка submit не активна
+  //затем происходит открытие самого popup, в который вставляются значения со странички,
+  //а если запустить функция валидации при открытии попапа, когда уже выбраны значения для input, кнопка submit принимает корректное положение.
+
+  enableValidation({
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'popup__button_disabled',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: 'popup__error_visible'
+  });
+
+  // Функция открытия попапа
   popup.classList.add('popup_opened');
 }
 
@@ -138,6 +154,35 @@ function deleteCard (evt) {
 function likeCard (evt) {
   evt.target.classList.toggle('cards__button_liked');
 }
+
+// Навешивает событие на popup для зыкрытия по клавище Esc
+document.querySelector('.page').addEventListener('keydown', (evt) => {
+  if(evt.key == 'Escape') {
+    const popup = document.querySelector('.popup_opened');
+    closePopup (popup);
+  }
+});
+
+// Навешивает событие на popupEditProfile для зыкрытия по клику на оверлей
+popupEditProfile.addEventListener('click', (evt) => {
+  if(evt.target === evt.currentTarget) {
+    closePopup (popupEditProfile);
+  }
+});
+
+// Навешивает событие на popupAddCard для зыкрытия по клику на оверлей
+popupAddCard.addEventListener('click', (evt) => {
+  if(evt.target === evt.currentTarget) {
+    closePopup (popupAddCard);
+  }
+});
+
+// Навешивает событие на popupOpenCard для зыкрытия по клику на оверлей
+popupOpenCard.addEventListener('click', (evt) => {
+  if(evt.target === evt.currentTarget) {
+    closePopup (popupOpenCard);
+  }
+});
 
 // Обработчики событий
 popupEditProfile.querySelector('.popup__close').addEventListener('click', () => { closePopup(popupEditProfile); });
