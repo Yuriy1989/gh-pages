@@ -29,7 +29,7 @@ const hasInvalidInput = (inputList) => {
   });
 }
 
-//Функц отключения кнопки
+//Функция отключения кнопки
 const disableButton = (buttonElement, itemsValidation) => {
   buttonElement.setAttribute('disabled', '');
   buttonElement.classList.add(itemsValidation.inactiveButtonClass);
@@ -74,3 +74,11 @@ const enableValidation = (itemsValidation) => {
   });
 };
 
+enableValidation({
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+});

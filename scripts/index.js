@@ -13,6 +13,7 @@ const valueProfileTextPopup = popupEditProfile.querySelector('.popup__input_stri
 const itemCard = popupOpenCard.querySelector('.popup__image');
 const valueProfileTitle = document.querySelector('.profile__title');
 const valueProfileText = document.querySelector('.profile__text');
+const popups = document.querySelectorAll('.popup')
 
 const initialCards = [
   {
@@ -94,28 +95,14 @@ function openCard (item) {
 
 //Функция открытия попапов
 function openPopup (popup) {
-
-  //Функцию валидации запускаю при открытии попапа, т.к. если запустить ее из файла Validate.js, происходит баг,
-  //а именно при открытии Popup для редактирования профиля, валидор проверяет пустные значения input и кнопка submit не активна
-  //затем происходит открытие самого popup, в который вставляются значения со странички,
-  //а если запустить функция валидации при открытии попапа, когда уже выбраны значения для input, кнопка submit принимает корректное положение.
-
-  enableValidation({
-    formSelector: '.popup__form',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__button',
-    inactiveButtonClass: 'popup__button_disabled',
-    inputErrorClass: 'popup__input_type_error',
-    errorClass: 'popup__error_visible'
-  });
-
-  // Функция открытия попапа
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closeByEscape);
 }
 
 // Функция закрытия попапа
 function closePopup (popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closeByEscape);
 }
 
 // Функция изменения имени и текста
@@ -156,42 +143,29 @@ function likeCard (evt) {
 }
 
 // Навешивает событие на popup для зыкрытия по клавище Esc
-document.querySelector('.page').addEventListener('keydown', (evt) => {
-  if(evt.key == 'Escape') {
-    const popup = document.querySelector('.popup_opened');
-    closePopup (popup);
+function closeByEscape(evt) {
+  if(evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened');
+    closePopup (openedPopup);
   }
-});
-
-// Навешивает событие на popupEditProfile для зыкрытия по клику на оверлей
-popupEditProfile.addEventListener('click', (evt) => {
-  if(evt.target === evt.currentTarget) {
-    closePopup (popupEditProfile);
-  }
-});
-
-// Навешивает событие на popupAddCard для зыкрытия по клику на оверлей
-popupAddCard.addEventListener('click', (evt) => {
-  if(evt.target === evt.currentTarget) {
-    closePopup (popupAddCard);
-  }
-});
-
-// Навешивает событие на popupOpenCard для зыкрытия по клику на оверлей
-popupOpenCard.addEventListener('click', (evt) => {
-  if(evt.target === evt.currentTarget) {
-    closePopup (popupOpenCard);
-  }
-});
+}
 
 // Обработчики событий
-popupEditProfile.querySelector('.popup__close').addEventListener('click', () => { closePopup(popupEditProfile); });
+
+popups.forEach((popup) => {
+    popup.addEventListener('click', (evt) => {
+      console.log(evt.target.classList);
+        if (evt.target.classList.contains('popup_opened')) {
+            closePopup(popup)
+        }
+        if (evt.target.classList.contains('popup__close-image')) {
+          closePopup(popup)
+        }
+    })
+})
+
 popupEditProfile.querySelector('.popup__form_edit-profile').addEventListener('submit', handleProfileFormSubmit);
-
-popupAddCard.querySelector('.popup__close').addEventListener('click', () => { closePopup(popupAddCard); });
 popupAddCard.querySelector('.popup__form_add-card').addEventListener('submit', handleCardFormSubmit);
-
-popupOpenCard.querySelector('.popup__close').addEventListener('click', () => { closePopup(popupOpenCard); });
 
 profileEditPopupButton.addEventListener('click', openPopupEditProfile);
 profileAddCardsButton.addEventListener('click', openPopupAddCards);
