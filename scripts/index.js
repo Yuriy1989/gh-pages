@@ -154,13 +154,12 @@ function closeByEscape(evt) {
 
 popups.forEach((popup) => {
     popup.addEventListener('click', (evt) => {
-      console.log(evt.target.classList);
-        if (evt.target.classList.contains('popup_opened')) {
-            closePopup(popup)
-        }
-        if (evt.target.classList.contains('popup__close-image')) {
-          closePopup(popup)
-        }
+      if (evt.target.classList.contains('popup_opened')) {
+        closePopup(popup)
+      }
+      if (evt.target.classList.contains('popup__close-image')) {
+        closePopup(popup)
+      }
     })
 })
 
