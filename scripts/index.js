@@ -13,7 +13,7 @@ const valueProfileTextPopup = popupEditProfile.querySelector('.popup__input_stri
 const itemCard = popupOpenCard.querySelector('.popup__image');
 const valueProfileTitle = document.querySelector('.profile__title');
 const valueProfileText = document.querySelector('.profile__text');
-const popups = document.querySelectorAll('.popup')
+const popups = document.querySelectorAll('.popup');
 
 const initialCards = [
   {
