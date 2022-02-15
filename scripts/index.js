@@ -3,6 +3,7 @@ const profileEditPopupButton = document.querySelector('.profile__edit-button');
 const profileAddCardsButton = document.querySelector('.profile__add-button');
 const popupEditProfile = document.querySelector('.popup_edit-profile');
 const popupAddCard = document.querySelector('.popup_add-card');
+const popupSubmit = popupAddCard.querySelector('.popup__button');
 const popupOpenCard = document.querySelector('.popup_card-open');
 const valueCardName = popupAddCard.querySelector('.popup__input_string-name');
 const valueCardText = popupAddCard.querySelector('.popup__input_string-text');
@@ -127,6 +128,9 @@ function handleCardFormSubmit (evt) {
 
   valueCardName.value = '';
   valueCardText.value = '';
+
+  popupSubmit.setAttribute('disabled', '');
+  popupSubmit.classList.add('popup__button_disabled');
 
   addCard(cardItem);
   closePopup(popupAddCard);
