@@ -43,6 +43,30 @@ const initialCards = [
   }
 ];
 
+//Класс карточек
+class Card {
+  constructor (link, name, template) {
+    this.link = link;
+    this.name = name;
+  }
+
+//Метод получения разметки шаблона карточки
+  _getTamplate() {
+    const cardElement = templateCard.querySelector('.cards__item').cloneNode(true);
+    return cardElement;
+  }
+
+//Метод генерации заполненной карточки
+  generateCard() {
+    this._element = this._getTamplate();
+    this._element.querySelector('.cards__image').src = this._link;
+    this._element.querySelector('.');
+  }
+}
+
+const card = new Card ();
+
+
 //Функция клонирования шаблона для создания карточки
 function createCard (item) {
   const cardElement = templateCard.querySelector('.cards__item').cloneNode(true);
