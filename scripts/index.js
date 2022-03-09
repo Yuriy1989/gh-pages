@@ -1,3 +1,5 @@
+import {FormValidator} from './validate.js';
+
 const cards = document.querySelector('.cards');
 const profileEditPopupButton = document.querySelector('.profile__edit-button');
 const profileAddCardsButton = document.querySelector('.profile__add-button');
@@ -15,6 +17,15 @@ const itemCard = popupOpenCard.querySelector('.popup__image');
 const valueProfileTitle = document.querySelector('.profile__title');
 const valueProfileText = document.querySelector('.profile__text');
 const popups = document.querySelectorAll('.popup');
+
+const dataValidation = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+};
 
 const initialCards = [
   {
@@ -42,6 +53,12 @@ const initialCards = [
     link: 'https://images.unsplash.com/photo-1569343051392-7cf0a301baa9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1447&q=80'
   }
 ];
+
+const validationPopupAddCard = new FormValidator(dataValidation, popupAddCard);
+validationPopupAddCard.enableValidation();
+
+const validationPopupEditProfile = new FormValidator(dataValidation, popupEditProfile);
+validationPopupEditProfile.enableValidation();
 
 //Класс карточек
 class Card {
