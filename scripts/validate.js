@@ -1,3 +1,50 @@
+const dataValidation = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+};
+
+class FormValidator {
+  constructor(data, formElement) {
+    this._formSelector = data.formSelector;
+    this._inputSelector = data.inputSelector;
+    this._submitButtonSelector = data.submitButtonSelector;
+    this._inactiveButtonClass = data.inactiveButtonClass;
+    this._inputErrorClass = data.inputErrorClass;
+    this._errorClass = data.errorClass;
+    this._formElement = formElement;
+  }
+
+  //Метод сбора всех input и добавления слушателей на input
+  _collectAllForms() {
+    const inputList = Array.from(formElement.querySelectorAll(itemsValidation.inputSelector));
+    const buttonElement = formElement.querySelector(itemsValidation.submitButtonSelector);
+    toggleButtonState(inputList, buttonElement, itemsValidation);
+    inputList.forEach( (inputElement) => {
+    inputElement.addEventListener('input', () => {
+        isValid(formElement, inputElement, itemsValidation);
+        toggleButtonState(inputList, buttonElement, itemsValidation);
+      })
+    });
+  }
+
+  //Метод сбора всех форм на страничке
+  _setEventListener() {
+    console.log('input test');
+  }
+
+  //Метод включения валидации форм
+  enableValidation() {
+    this._collectAllForms();
+  }
+}
+
+const validationPopupAddCard = new FormValidator(dataValidation, '.popup_add-card');
+validationPopupAddCard.enableValidation();
+
 //Функция проверки input по заданным параметрам
 const isValid = (formElement, inputElement, itemsValidation) => {
   if(!inputElement.validity.valid) {
@@ -64,21 +111,21 @@ const setEventListener = (formElement, itemsValidation) => {
 }
 
 //Функция сбора всех форм на страничке
-const enableValidation = (itemsValidation) => {
-  const formLists = Array.from(document.querySelectorAll(itemsValidation.formSelector));
-  formLists.forEach((formElement) => {
-    formElement.addEventListener('submit', (evt) => {
-      evt.preventDefault();
-    });
-    setEventListener(formElement, itemsValidation);
-  });
-};
+// const enableValidation = (itemsValidation) => {
+//   const formLists = Array.from(document.querySelectorAll(itemsValidation.formSelector));
+//   formLists.forEach((formElement) => {
+//     formElement.addEventListener('submit', (evt) => {
+//       evt.preventDefault();
+//     });
+//     setEventListener(formElement, itemsValidation);
+//   });
+// };
 
-enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-});
+// enableValidation({
+//   formSelector: '.popup__form',
+//   inputSelector: '.popup__input',
+//   submitButtonSelector: '.popup__button',
+//   inactiveButtonClass: 'popup__button_disabled',
+//   inputErrorClass: 'popup__input_type_error',
+//   errorClass: 'popup__error_visible'
+// });
