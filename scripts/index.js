@@ -111,13 +111,6 @@ function render (cardElements) {
   cards.prepend(cardElements);
 }
 
-// Функция создания карточки
-function createCard(cardItem) {
-  const card = new Card(cardItem, '#card', handleCardClick);
-  const cardElement = card.generateCard();
-  return cardElement;
-}
-
 // Функция клика по карточке
 const handleCardClick = (name, link) => {
   itemCard.src = link;
@@ -125,6 +118,13 @@ const handleCardClick = (name, link) => {
   headerPopupCard.textContent = name;
 
   openPopup(popupOpenCard);
+}
+
+// Функция создания карточки
+function createCard(cardItem) {
+  const card = new Card(cardItem, '#card', handleCardClick);
+  const cardElement = card.generateCard();
+  return cardElement;
 }
 
 // Обработчики событий
