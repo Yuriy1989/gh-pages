@@ -77,7 +77,7 @@ function openPopupEditProfile () {
 
 // Функция открытия попапа для добавления карточек
 function openPopupAddCards () {
-  formValidators['popup'].resetValidation()
+  formValidators['card-form'].resetValidation()
   openPopup(popupAddCard);
 }
 
@@ -101,7 +101,7 @@ function handleCardFormSubmit (evt) {
     link: `${valueCardLink}`
   };
 
-  const cardElement = createCard(initialCards);
+  const cardElement = createCard(cardItem);
   render(cardElement);
   closePopup(popupAddCard);
 }

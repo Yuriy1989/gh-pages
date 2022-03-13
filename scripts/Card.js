@@ -1,5 +1,3 @@
-import {headerPopupCard, itemCard, popupOpenCard, openPopup} from './utils.js';
-
 //Класс карточек
 export class Card {
   constructor (data, template, handleCardClick) {
@@ -17,11 +15,11 @@ export class Card {
 
 //Метод навешивания событий
   _setEventListeners() {
-    this._cardsbutton = this._element.querySelector('.cards__button');
-    this._cards__image = this._element.querySelector('.cards__image');
+    this._cardLikeBtn = this._element.querySelector('.cards__button');
+    this._cardOpenImage = this._element.querySelector('.cards__image');
     this._setEventDeleteCard();
     this._setEventLikeCard();
-    this._cards__image.addEventListener('click', () => {
+    this._cardOpenImage.addEventListener('click', () => {
       this._handleCardClick(this._name, this._link);
     });
   }
@@ -35,23 +33,14 @@ export class Card {
 
 //Метод добавляющий слушателя для удаления карточки
   _setEventLikeCard() {
-    this._cardsbutton.addEventListener('click', () => {
+    this._cardLikeBtn.addEventListener('click', () => {
       this._likeCard();
     });
   }
 
-//Метод открытия карточки
-  _openCard() {
-    itemCard.src = this._link;
-    itemCard.alt = this._name;
-    headerPopupCard.textContent = this._name;
-
-    openPopup(popupOpenCard);
-  }
-
 //Метод лайка карточки
   _likeCard() {
-    this._cardsbutton.classList.toggle('cards__button_liked');
+    this._cardLikeBtn.classList.toggle('cards__button_liked');
   }
 
 //Метод удаления карточки
@@ -63,8 +52,8 @@ export class Card {
   generateCard() {
     this._element = this._getTamplate();
     this._setEventListeners();
-    this._cards__image.src = this._link;
-    this._cards__image.alt = this._name;
+    this._cardOpenImage.src = this._link;
+    this._cardOpenImage.alt = this._name;
     this._element.querySelector('.cards__text').textContent = this._name;
 
     return this._element;
