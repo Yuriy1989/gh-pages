@@ -1,3 +1,5 @@
+// import { Popup } from "./utils";
+
 //Класс карточек
 export class Card {
   constructor (data, template, handleCardClick) {
@@ -59,3 +61,9 @@ export class Card {
     return this._element;
   }
 }
+
+const OpenPopup = new Popup();
+
+
+
+

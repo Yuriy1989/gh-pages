@@ -1,4 +1,4 @@
-import {popupOpenCard, openPopup, closePopup, itemCard, headerPopupCard} from './utils.js';
+// import {popupOpenCard, itemCard, Popup} from './utils.js';
 import {FormValidator} from './FormValidation.js';
 import {Card} from './Card.js';
 
@@ -101,15 +101,30 @@ function handleCardFormSubmit (evt) {
     link: `${valueCardLink}`
   };
 
-  const cardElement = createCard(cardItem);
-  render(cardElement);
+  // const cardElement = createCard(cardItem);
+  // render(cardElement);
+
+  const cardsList = new Section({
+    data: cardItem,
+    renderer: (item) => {
+      const card = new Card(item, '#card', handleCardClick);
+      const cardElement = card.generateCard();
+
+        cardsList.addItem(cardElement);
+      }
+    },
+    cards
+  );
+  cardsList.renderItems();
+
   closePopup(popupAddCard);
 }
 
+
 // Функция рендера карточек
-function render (cardElements) {
-  cards.prepend(cardElements);
-}
+// function render (cardElements) {
+//   cards.prepend(cardElements);
+// }
 
 // Функция клика по карточке
 const handleCardClick = (name, link) => {
@@ -121,11 +136,11 @@ const handleCardClick = (name, link) => {
 }
 
 // Функция создания карточки
-function createCard(cardItem) {
-  const card = new Card(cardItem, '#card', handleCardClick);
-  const cardElement = card.generateCard();
-  return cardElement;
-}
+// function createCard(cardItem) {
+//   const card = new Card(cardItem, '#card', handleCardClick);
+//   const cardElement = card.generateCard();
+//   return cardElement;
+// }
 
 // Обработчики событий
 popups.forEach((popup) => {
@@ -145,9 +160,43 @@ popupAddCard.querySelector('.popup__form_add-card').addEventListener('submit', h
 profileEditPopupButton.addEventListener('click', openPopupEditProfile);
 profileAddCardsButton.addEventListener('click', openPopupAddCards);
 
-initialCards.forEach((cardItem) => {
-  const cardElements = createCard(cardItem);
-  render(cardElements);
-});
+// initialCards.forEach((cardItem) => {
+//   const cardElements = createCard(cardItem);
+//   render(cardElements);
+// });
 
+//Класс отвечающий за отрисовку элементов
+class Section {
+  constructor ({data, renderer}, containerSelector) {
+    this._items = data;
+    this._renderer = renderer;
+    this._containerSelector = containerSelector;
+  }
 
+  renderItems(){
+    this._items.forEach((item) => {
+      this._renderer(item);
+    });
+  }
+
+  addItem(element) {
+    this._containerSelector.prepend(element);
+  }
+}
+
+const cardsList = new Section({
+  data: initialCards,
+  renderer: (item) => {
+    const card = new Card(item, '#card', handleCardClick);
+    const cardElement = card.generateCard();
+
+      cardsList.addItem(cardElement);
+    }
+  },
+  cards
+);
+
+cardsList.renderItems();
+
+const OpenPopup = new Popup();
+// OpenPopup.open();
