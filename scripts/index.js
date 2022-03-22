@@ -1,4 +1,6 @@
-// import {popupOpenCard, itemCard, Popup} from './utils.js';
+import {popupOpenCard, headerPopupCard, itemCard} from './utils.js';
+import {Section} from './Section.js';
+import {Popup} from './Popup.js';
 import {FormValidator} from './FormValidation.js';
 import {Card} from './Card.js';
 
@@ -120,7 +122,6 @@ function handleCardFormSubmit (evt) {
   closePopup(popupAddCard);
 }
 
-
 // Функция рендера карточек
 // function render (cardElements) {
 //   cards.prepend(cardElements);
@@ -132,7 +133,10 @@ const handleCardClick = (name, link) => {
   itemCard.alt = name;
   headerPopupCard.textContent = name;
 
-  openPopup(popupOpenCard);
+  const OpenPopup = new Popup(popupOpenCard);
+  // console.log(OpenPopup);
+  // openPopup(popupOpenCard);
+  OpenPopup.open();
 }
 
 // Функция создания карточки
@@ -143,16 +147,16 @@ const handleCardClick = (name, link) => {
 // }
 
 // Обработчики событий
-popups.forEach((popup) => {
-    popup.addEventListener('click', (evt) => {
-      if (evt.target.classList.contains('popup_opened')) {
-        closePopup(popup)
-      }
-      if (evt.target.classList.contains('popup__close-image')) {
-        closePopup(popup)
-      }
-    })
-})
+// popups.forEach((popup) => {
+//     popup.addEventListener('click', (evt) => {
+//       if (evt.target.classList.contains('popup_opened')) {
+//         closePopup(popup)
+//       }
+//       if (evt.target.classList.contains('popup__close-image')) {
+//         closePopup(popup)
+//       }
+//     })
+// })
 
 popupEditProfile.querySelector('.popup__form_edit-profile').addEventListener('submit', handleProfileFormSubmit);
 popupAddCard.querySelector('.popup__form_add-card').addEventListener('submit', handleCardFormSubmit);
@@ -164,25 +168,6 @@ profileAddCardsButton.addEventListener('click', openPopupAddCards);
 //   const cardElements = createCard(cardItem);
 //   render(cardElements);
 // });
-
-//Класс отвечающий за отрисовку элементов
-class Section {
-  constructor ({data, renderer}, containerSelector) {
-    this._items = data;
-    this._renderer = renderer;
-    this._containerSelector = containerSelector;
-  }
-
-  renderItems(){
-    this._items.forEach((item) => {
-      this._renderer(item);
-    });
-  }
-
-  addItem(element) {
-    this._containerSelector.prepend(element);
-  }
-}
 
 const cardsList = new Section({
   data: initialCards,
@@ -198,5 +183,5 @@ const cardsList = new Section({
 
 cardsList.renderItems();
 
-const OpenPopup = new Popup();
-// OpenPopup.open();
+
+
