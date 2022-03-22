@@ -1,6 +1,7 @@
 import {popupOpenCard, headerPopupCard, itemCard} from './utils.js';
 import Section from './Section.js';
 import {Popup} from './Popup.js';
+import {PopupWithImage} from './PopupWithImage.js';
 import {FormValidator} from './FormValidation.js';
 import {Card} from './Card.js';
 
@@ -10,8 +11,7 @@ const profileAddCardsButton = document.querySelector('.profile__add-button');
 const popupEditProfile = document.querySelector('.popup_edit-profile');
 const popupAddCard = document.querySelector('.popup_add-card');
 const popupSubmit = popupAddCard.querySelector('.popup__button');
-const valueCardName = popupAddCard.querySelector('.popup__input_string-name');
-const valueCardText = popupAddCard.querySelector('.popup__input_string-text');
+
 const valueProfileNamePopup = popupEditProfile.querySelector('.popup__input_string-name');
 const valueProfileTextPopup = popupEditProfile.querySelector('.popup__input_string-text');
 const valueProfileTitle = document.querySelector('.profile__title');
@@ -86,7 +86,7 @@ function openPopupAddCards () {
   // openPopup(popupAddCard);
   const openPopup = new Popup(popupAddCard);
   openPopup.open();
-  openPopup.setEventListeners();
+  // openPopup.setEventListeners();
 }
 
 // Функция изменения имени и текста
@@ -135,12 +135,12 @@ function handleCardFormSubmit (evt) {
 
 // Функция клика по карточке
 const handleCardClick = (name, link) => {
-  itemCard.src = link;
-  itemCard.alt = name;
-  headerPopupCard.textContent = name;
+  // itemCard.src = link;
+  // itemCard.alt = name;
+  // headerPopupCard.textContent = name;
 
-  const openPopup = new Popup(popupOpenCard);
-  // console.log(OpenPopup);
+  const openPopup = new PopupWithImage(popupOpenCard, name, link);
+  // console.log(openPopup);
   // openPopup(popupOpenCard);
   openPopup.open();
   openPopup.setEventListeners();
