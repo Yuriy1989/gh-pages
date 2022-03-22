@@ -1,5 +1,5 @@
 //Класс отвечающий за отрисовку элементов
-export class Section {
+export default class Section {
   constructor ({data, renderer}, containerSelector) {
     this._items = data;
     this._renderer = renderer;

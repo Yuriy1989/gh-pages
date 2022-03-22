@@ -1,5 +1,5 @@
 import {popupOpenCard, headerPopupCard, itemCard} from './utils.js';
-import {Section} from './Section.js';
+import Section from './Section.js';
 import {Popup} from './Popup.js';
 import {FormValidator} from './FormValidation.js';
 import {Card} from './Card.js';
@@ -74,13 +74,19 @@ function openPopupEditProfile () {
   valueProfileNamePopup.setAttribute('value', `${valueProfileTitle.textContent}`);
   valueProfileTextPopup.setAttribute('value', `${valueProfileText.textContent}`);
 
-  openPopup(popupEditProfile);
+  // openPopup(popupEditProfile);
+  const openPopup = new Popup(popupEditProfile);
+  openPopup.open();
+  openPopup.setEventListeners();
 }
 
 // Функция открытия попапа для добавления карточек
 function openPopupAddCards () {
   formValidators['card-form'].resetValidation()
-  openPopup(popupAddCard);
+  // openPopup(popupAddCard);
+  const openPopup = new Popup(popupAddCard);
+  openPopup.open();
+  openPopup.setEventListeners();
 }
 
 // Функция изменения имени и текста
@@ -133,10 +139,11 @@ const handleCardClick = (name, link) => {
   itemCard.alt = name;
   headerPopupCard.textContent = name;
 
-  const OpenPopup = new Popup(popupOpenCard);
+  const openPopup = new Popup(popupOpenCard);
   // console.log(OpenPopup);
   // openPopup(popupOpenCard);
-  OpenPopup.open();
+  openPopup.open();
+  openPopup.setEventListeners();
 }
 
 // Функция создания карточки

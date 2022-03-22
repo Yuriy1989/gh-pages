@@ -60,8 +60,6 @@ export class Card {
   }
 }
 
-// const OpenPopup = new Popup();
-
 
 
 
