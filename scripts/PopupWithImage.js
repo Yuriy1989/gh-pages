@@ -14,7 +14,6 @@ export class PopupWithImage extends Popup {
     itemCard.alt = this._name;
     headerPopupCard.textContent = this._name;
 
-    // console.log(this._popupSelector);
     this._popupSelector.classList.add('popup_opened');
     super._handleEscClose(this._popupSelector);
 

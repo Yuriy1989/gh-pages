@@ -9,15 +9,7 @@ export class PopupWithForm extends Popup {
   }
 
   _getInputValues() {
-    this._formValidators = {};
-    const formList = Array.from(document.querySelectorAll(config.formSelector));
-    formList.forEach((formElement) => {
-      const validator = new FormValidator(config, formElement);
-      const formName = formElement.getAttribute('name');
-      formValidators[formName] = validator;
-      validator.enableValidation();
-    });
-    enableValidation(config);
+    const formList = Array.from(document.querySelectorAll(this._popupSelector));
   }
 
   setEventListeners() {
@@ -29,12 +21,12 @@ export class PopupWithForm extends Popup {
         this.close()
       }
     })
-    popupAddCard.querySelector('.popup__form_add-card').addEventListener('submit', handleCardFormSubmit);
+    popupAddCard.querySelector('.popup__form_add-card').addEventListener('submit', this._enableValidation);
   }
 
   close() {
     this._popupSelector.classList.remove('popup_opened');
     document.removeEventListener('keydown', this._handleEscClose);
-    this._formValidators['card-form'].resetValidation();
+    // this._formValidators['card-form'].resetValidation();
   }
 }
