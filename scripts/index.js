@@ -1,21 +1,24 @@
-import {popupOpenCard, config, headerPopupCard, itemCard} from './utils.js';
+import {popupOpenCard, config, popupAddCard, headerPopupCard, itemCard} from './utils.js';
 import Section from './Section.js';
 import {Popup} from './Popup.js';
 import {PopupWithImage} from './PopupWithImage.js';
 import {FormValidator} from './FormValidation.js';
+import {PopupWithForm} from './PopupWithForm.js'
 import {Card} from './Card.js';
 
 const cards = document.querySelector('.cards');
 const profileEditPopupButton = document.querySelector('.profile__edit-button');
 const profileAddCardsButton = document.querySelector('.profile__add-button');
 const popupEditProfile = document.querySelector('.popup_edit-profile');
-const popupAddCard = document.querySelector('.popup_add-card');
+
 const valueCardName = popupAddCard.querySelector('.popup__input_string-name');
 const valueCardText = popupAddCard.querySelector('.popup__input_string-text');
 const valueProfileNamePopup = popupEditProfile.querySelector('.popup__input_string-name');
 const valueProfileTextPopup = popupEditProfile.querySelector('.popup__input_string-text');
 const valueProfileTitle = document.querySelector('.profile__title');
 const valueProfileText = document.querySelector('.profile__text');
+
+let popup;
 
 const initialCards = [
   {
@@ -49,16 +52,20 @@ function openPopupEditProfile () {
   valueProfileNamePopup.setAttribute('value', `${valueProfileTitle.textContent}`);
   valueProfileTextPopup.setAttribute('value', `${valueProfileText.textContent}`);
 
-  const openPopup = new Popup(popupEditProfile);
-  openPopup.open();
-  openPopup.setEventListeners();
+  itemPopup(popupEditProfile);
 }
 
 // Функция открытия попапа для добавления карточек
 function openPopupAddCards () {
-  const openPopup = new Popup(popupAddCard);
-  openPopup.open();
-  openPopup.setEventListeners();
+  itemPopup(popupAddCard);
+}
+
+//Функция создания класса Popup
+function itemPopup (namePopup) {
+  popup = new Popup(namePopup);
+  popup.open();
+  popup.setEventListeners();
+  return popup;
 }
 
 // Функция изменения имени и текста
@@ -70,29 +77,19 @@ function handleProfileFormSubmit (evt) {
 }
 
 // Функция добавления карточки
-function handleCardFormSubmit (evt) {
-  evt.preventDefault();
-  const valueCardTitle =  valueCardName.value;
-  const valueCardLink = valueCardText.value;
+function handleCardFormSubmit (cardItem) {
+  formValidators['card-form'].resetValidation()
+  console.log(cardItem);
 
-  const cardItem = [{
-    name : `${valueCardTitle}`,
-    link: `${valueCardLink}`
-  }];
-
-  const cardsList = new Section({
-    data: cardItem,
-    renderer: (item) => {
-      const card = new Card(item, '#card', handleCardClick);
-      const cardElement = card.generateCard();
-
-        cardsList.addItem(cardElement);
-      }
-    },
-    cards
-  );
-  cardsList.renderItems();
+  cardsList.addItem(createCard(cardItem));
+  popup.close();
 }
+
+
+const valuePopup = new PopupWithForm(popupAddCard, handleCardFormSubmit);
+valuePopup.setEventListeners();
+
+
 
 // Функция клика по карточке
 const handleCardClick = (name, link) => {
@@ -119,16 +116,18 @@ const enableValidation = (config) => {
     validator.enableValidation();
   });
 }
-// enableValidation(config);
+enableValidation(config);
 
-
+function createCard(item) {
+  const newCard = new Card(item, '#card', handleCardClick);
+  const card = newCard.generateCard();
+  return card;
+}
 
 const cardsList = new Section({
   data: initialCards,
   renderer: (item) => {
-    const card = new Card(item, '#card', handleCardClick);
-    const cardElement = card.generateCard();
-
+      const cardElement = createCard(item);
       cardsList.addItem(cardElement);
     }
   },

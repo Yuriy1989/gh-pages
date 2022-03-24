@@ -1,9 +1,3 @@
-//Функция открытия попапов
-// export const openPopup = (popup) => {
-//   popup.classList.add('popup_opened');
-//   document.addEventListener('keydown', closeByEscape);
-// }
-
 export class Popup {
   constructor (popupSelector) {
     this._popupSelector = popupSelector;
@@ -40,18 +34,3 @@ export class Popup {
     document.removeEventListener('keydown', this._handleEscClose);
   }
 }
-
-
-// Навешивает событие на popup для зыкрытия по клавище Esc
-// export const closeByEscape = (evt) => {
-//   if(evt.key === 'Escape') {
-//     const openedPopup = document.querySelector('.popup_opened');
-//     closePopup (openedPopup);
-//   }
-// }
-
-// Функция закрытия попапа
-// export const closePopup = (popup) => {
-//   popup.classList.remove('popup_opened');
-//   document.removeEventListener('keydown', closeByEscape);
-// }

@@ -1,6 +1,6 @@
 import {Popup} from './Popup.js';
-import {config} from './utils.js';
-import {FormValidator} from './FormValidation.js'
+import {popupAddCard} from './utils.js';
+
 
 export class PopupWithForm extends Popup {
   constructor (popupSelector, enableValidation) {
@@ -9,7 +9,13 @@ export class PopupWithForm extends Popup {
   }
 
   _getInputValues() {
-    const formList = Array.from(document.querySelectorAll(this._popupSelector));
+    const inputList = Array.from(this._popupSelector.querySelectorAll('.popup__input'));
+    const arrayInputList = [];
+    inputList.forEach((item) => {
+      arrayInputList.push(item.value);
+    });
+    // console.log(arrayInputList);
+    return arrayInputList;
   }
 
   setEventListeners() {
@@ -21,7 +27,10 @@ export class PopupWithForm extends Popup {
         this.close()
       }
     })
-    popupAddCard.querySelector('.popup__form_add-card').addEventListener('submit', this._enableValidation);
+    popupAddCard.querySelector('.popup__form_add-card').addEventListener('submit', (evt) => {
+      evt.preventDefault();
+      this._enableValidation(this._getInputValues());
+    });
   }
 
   close() {
