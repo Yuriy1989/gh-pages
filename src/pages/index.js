@@ -25,7 +25,7 @@ function itemPopup (namePopup) {
 function openPopupEditProfile () {
   const userInfo = userInfoProfile.getUserInfo();
 
-  valueProfileNamePopup.setAttribute('value', userInfo.name);
+  valueProfileNamePopup.setAttribute('value', userInfo.yourName);
   valueProfileTextPopup.setAttribute('value', userInfo.text);
 
   itemPopup(popupEditProfile);
