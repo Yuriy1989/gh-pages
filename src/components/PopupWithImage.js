@@ -1,24 +1,17 @@
 import {Popup} from './Popup.js';
-import {itemCard, headerPopupCard} from './utils.js';
-
 
 export class PopupWithImage extends Popup {
-  constructor (popupSelector, name, link) {
+  constructor (popupSelector) {
     super(popupSelector);
-    this._name = name;
-    this._link = link;
+    this._CardLink = this._popup.querySelector('.popup__image');
+    this._CardName = this._popup.querySelector('.popup__header');
   }
 
-  open() {
-    itemCard.src = this._link;
-    itemCard.alt = this._name;
-    headerPopupCard.textContent = this._name;
+  open(name, link) {
+    this._CardLink.src = link;
+    this._CardLink.alt = name;
+    this._CardName.textContent = name;
 
-    this._popupSelector.classList.add('popup_opened');
-    super._handleEscClose(this._popupSelector);
-
-    document.addEventListener('keydown', (evt) => {
-      super._handleEscClose(evt);
-    });
+    super.open();
   }
 }

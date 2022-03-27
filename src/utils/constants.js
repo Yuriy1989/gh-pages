@@ -1,6 +1,4 @@
 export const popupOpenCard = document.querySelector('.popup_card-open');
-export const headerPopupCard = popupOpenCard.querySelector('.popup__header');
-export const itemCard = popupOpenCard.querySelector('.popup__image');
 export const popupAddCard = document.querySelector('.popup_add-card');
 export const popupEditProfile = document.querySelector('.popup_edit-profile');
 
@@ -13,7 +11,6 @@ export const config = {
   errorClass: 'popup__error_visible'
 };
 
-export const cards = document.querySelector('.cards');
 export const profileEditPopupButton = document.querySelector('.profile__edit-button');
 export const profileAddCardsButton = document.querySelector('.profile__add-button');
 export const valueProfileNamePopup = popupEditProfile.querySelector('.popup__input_string_name');

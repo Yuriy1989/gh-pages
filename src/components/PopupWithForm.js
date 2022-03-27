@@ -1,17 +1,16 @@
 import {Popup} from './Popup.js';
-import {formValidators} from '../pages/index.js';
-
 
 export class PopupWithForm extends Popup {
-  constructor (popupSelector, enableValidation) {
+  constructor (popupSelector, handleSubmit) {
     super(popupSelector);
-    this._enableValidation = enableValidation;
+    this._handleSubmit = handleSubmit;
+    this._inputList = Array.from(this._popup.querySelectorAll('.popup__input'));
+
   }
 
   _getInputValues() {
-    const inputList = Array.from(this._popupSelector.querySelectorAll('.popup__input'));
     const arrayInputList = {};
-    inputList.forEach((item) => {
+    this._inputList.forEach((item) => {
       arrayInputList[item.id]= item.value;
     });
     return arrayInputList;
@@ -19,15 +18,14 @@ export class PopupWithForm extends Popup {
 
   setEventListeners() {
     super.setEventListeners();
-
-    this._popupSelector.addEventListener('submit', (evt) => {
+    this._popup.addEventListener('submit', (evt) => {
       evt.preventDefault();
-      this._enableValidation(this._getInputValues());
+      this._handleSubmit(this._getInputValues());
     });
   }
 
   close() {
     super.close();
-    formValidators['card-form'].resetValidation()
+    this._popup.querySelector('.popup__form').reset();
   }
 }

@@ -1,7 +1,6 @@
-import {popupOpenCard, config, popupAddCard, popupEditProfile, cards, profileEditPopupButton, profileAddCardsButton,
-  valueProfileNamePopup, valueProfileTextPopup, initialCards} from '../components/utils.js';
+import {config, cards, profileEditPopupButton, profileAddCardsButton,
+  valueProfileNamePopup, valueProfileTextPopup, initialCards} from '../utils/constants.js';
 import Section from '../components/Section.js';
-import {Popup} from '../components/Popup.js';
 import {PopupWithImage} from '../components/PopupWithImage.js';
 import {FormValidator} from '../components/FormValidation.js';
 import {PopupWithForm} from '../components/PopupWithForm.js'
@@ -10,42 +9,31 @@ import {UserInfo} from '../components/UserInfo.js';
 
 import './index.css';
 
-//Записываем в данную переменную созданный класс Popup
-let popup;
-
-//Функция создания класса Popup
-function itemPopup (namePopup) {
-  popup = new Popup(namePopup);
-  popup.open();
-  popup.setEventListeners();
-  return popup;
-}
-
 // Функция открытия попапа для редактирования профиля
 function openPopupEditProfile () {
   const userInfo = userInfoProfile.getUserInfo();
 
   valueProfileNamePopup.setAttribute('value', userInfo.yourName);
   valueProfileTextPopup.setAttribute('value', userInfo.text);
-
-  itemPopup(popupEditProfile);
+  valuePopupProfile.open();
 }
 
 // Функция изменения имени и текста
 function handleProfileFormSubmit (newUserInfo) {
   userInfoProfile.setUserInfo(newUserInfo);
-  popup.close();
+  valuePopupProfile.close();
 }
 
 // Функция открытия попапа для добавления карточек
 function openPopupAddCards () {
-  itemPopup(popupAddCard);
+  valuePopupCard.open();
+  formValidators['card-form'].resetValidation();
 }
 
 // Функция добавления карточки
 function handleCardFormSubmit (cardItem) {
   cardsList.addItem(createCard(cardItem));
-  popup.close();
+  valuePopupCard.close();
 }
 
 // Функция создания класса Card
@@ -57,10 +45,7 @@ function createCard(item) {
 
 // Функция клика по карточке
 const handleCardClick = (name, link) => {
-  const openPopup = new PopupWithImage(popupOpenCard, name, link);
-
-  openPopup.open();
-  openPopup.setEventListeners();
+  openPopup.open(name, link);
 }
 
 //Навешиваем обработчики
@@ -80,18 +65,22 @@ const enableValidation = (config) => {
 }
 enableValidation(config);
 
+// Создаем класс PopupWithImage
+const openPopup = new PopupWithImage('popup_card-open');
+openPopup.setEventListeners();
+
 // Создаем класс PopupWithForm в которой собираем все input по открытой форме
-const valuePopupCard = new PopupWithForm(popupAddCard, handleCardFormSubmit);
+const valuePopupCard = new PopupWithForm('popup_add-card', handleCardFormSubmit);
 valuePopupCard.setEventListeners();
 
 // Создаем класс PopupWithForm в которой собираем все input по открытой форме
-const valuePopupProfile = new PopupWithForm(popupEditProfile, handleProfileFormSubmit);
+const valuePopupProfile = new PopupWithForm('popup_edit-profile', handleProfileFormSubmit);
 valuePopupProfile.setEventListeners();
 
 // Создаем класс UserInfo
 const userInfoProfile = new UserInfo({
-  profile__title: '.profile__title',
-  profile__text: '.profile__text'
+  profileTitle: '.profile__title',
+  profileText: '.profile__text'
 });
 
 // Создаем класс Section, с помощью которого рендерим все наши карточки на страничке
@@ -102,7 +91,7 @@ const cardsList = new Section({
       cardsList.addItem(cardElement);
     }
   },
-  cards
+  'cards'
 );
 
 cardsList.renderItems();

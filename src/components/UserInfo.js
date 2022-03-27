@@ -1,7 +1,7 @@
 export class UserInfo {
-  constructor ({profile__title, profile__text}) {
-    this._valueProfileName = document.querySelector(profile__title);
-    this._valueProfileText = document.querySelector(profile__text);
+  constructor ({profileTitle, profileText}) {
+    this._valueProfileName = document.querySelector(profileTitle);
+    this._valueProfileText = document.querySelector(profileText);
   }
 
   getUserInfo() {
