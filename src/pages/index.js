@@ -11,10 +11,9 @@ import './index.css';
 
 // Функция открытия попапа для редактирования профиля
 function openPopupEditProfile () {
+  formValidators['profile-form'].resetValidation();
   const userInfo = userInfoProfile.getUserInfo();
-
-  valueProfileNamePopup.setAttribute('value', userInfo.yourName);
-  valueProfileTextPopup.setAttribute('value', userInfo.text);
+  valuePopupProfile.setInputValues(userInfo);
   valuePopupProfile.open();
 }
 

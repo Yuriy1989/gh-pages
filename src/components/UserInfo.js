@@ -5,7 +5,7 @@ export class UserInfo {
   }
 
   getUserInfo() {
-    return {text: this._valueProfileText.textContent, yourName: this._valueProfileName.textContent};
+    return {text: this._valueProfileText.textContent, name: this._valueProfileName.textContent};
   }
 
   setUserInfo(data) {
