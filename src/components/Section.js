@@ -1,18 +1,27 @@
 //Класс отвечающий за отрисовку элементов
 export default class Section {
-  constructor ({data, renderer}, containerSelector) {
-    this._items = data;
+  constructor ({renderer}, containerSelector) {
+    // this._items = data;
     this._renderer = renderer;
     this._container = document.querySelector(`.${containerSelector}`);
   }
 
-  renderItems(){
-    this._items.forEach((item) => {
-      this._renderer(item);
+  renderItems(data, userData){
+    // console.log("-------------------------");
+    // console.log(data);
+    // console.log("-------------------------");
+    // console.log(userData);
+
+    data.forEach((item) => {
+      this._renderer(item, userData);
     });
   }
 
   addItem(element) {
     this._container.prepend(element);
+  }
+
+  addNewItem(element) {
+    this._container.append(element);
   }
 }

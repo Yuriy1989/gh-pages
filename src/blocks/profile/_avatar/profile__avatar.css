@@ -1,0 +1,42 @@
+.profile__avatar {
+  background-image: url('../../../images/avatar.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 120px;
+  border: 0;
+  padding: 0;
+  width: 120px;
+  height: 120px;
+  margin-right: 26.25px;
+  object-fit: cover;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+}
+
+.profile__avatar::before {
+  background: #000 url('../../../images/pen.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 120px;
+  content: "";
+  position: absolute;
+  opacity: .0;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  transition: opacity 0.4s linear;
+}
+
+.profile__avatar:hover::before {
+  opacity: .8;
+}
+
+@media screen and (max-width: 768px) {
+  .profile__avatar {
+    margin: 0;
+  }
+}
