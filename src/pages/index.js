@@ -19,6 +19,7 @@ Promise.all([api.getInfoUser(), api.getInitialCards()])
     userInfoProfile.setUserAvatar(userData);
     cardsList.renderItems(cards, userId);
   })
+  .catch((res) => console.log(res));
 
 // Функция открытия попапа для редактирования профиля
 function openPopupEditProfile () {
@@ -73,7 +74,7 @@ function handleCardFormSubmit (data) {
   valuePopupCard.loading('Сохранение...');
   api.setCard(data)
     .then((card) => {
-      cardsList.addItem(createCard(card, userId));
+      cardsList.addNewItem(createCard(card, userId));
       valuePopupCard.close();
     })
     .catch((res) => console.log(res))
@@ -148,6 +149,7 @@ function createCard(data, userId) {
                 newCard.deleteCard();
                 deletePopup.close();
               })
+              .catch((res) => console.log(res));
           });
         },
 
@@ -165,6 +167,7 @@ function createCard(data, userId) {
               newCard.setLikes(res.likes);
               console.log('поставили лайк');
             })
+            .catch((res) => console.log(res));
           }
         }
     }
