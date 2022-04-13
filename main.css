@@ -16,7 +16,7 @@
 .elements{margin:47.25px auto 0;width:100%}@media screen and (max-width:580px){.elements{margin-top:33px}}
 .cards{display:grid;gap:20px 17px;grid-template-columns:repeat(auto-fit,minmax(282px,1fr));justify-items:center;margin:0;padding:0}
 .cards__item{background-color:#fff;border-radius:10px;list-style:none;overflow:hidden;position:relative;width:282px}
-.cards__image{cursor:pointer;height:282px;-o-object-fit:cover;object-fit:cover;width:282px}
+.cards__image{background-color:rgba(30,30,30,.773);cursor:pointer;display:block;height:282px;-o-object-fit:cover;object-fit:cover;width:100%}
 .cards__button-delete{background:transparent;border:0;display:none;margin:0;padding:0;position:absolute;right:20px;top:20px;transition:opacity .4s linear}.cards__button-delete:hover{opacity:50%}
 .cards__delete{cursor:pointer;height:19px;width:18px}
 .cards__description{align-items:center;display:flex;justify-content:space-between;margin:25px 21px 22px 15px;max-width:246px}
