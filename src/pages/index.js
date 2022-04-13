@@ -10,11 +10,14 @@ import {api} from '../components/Api.js';
 
 import './index.css';
 
+let userId;
+
 Promise.all([api.getInfoUser(), api.getInitialCards()])
   .then(([userData, cards]) => {
+    userId = userData._id;
     userInfoProfile.setUserInfo(userData);
     userInfoProfile.setUserAvatar(userData);
-    cardsList.renderItems(cards, userData);
+    cardsList.renderItems(cards, userId);
   })
 
 // Функция открытия попапа для редактирования профиля
@@ -28,17 +31,15 @@ function openPopupEditProfile () {
 // Функция открытия попапа для редактирования аватара
 function openPopupEditProfileAvatar () {
   formValidators['avatar-form'].resetValidation();
-  const userInfo = userInfoProfile.getUserAvatar();
-  valuePopupProfileAvatar.setInputValues(userInfo);
   valuePopupProfileAvatar.open();
 }
 
 // Функция изменения имени и текста
 function handleProfileFormSubmit (data) {
   valuePopupProfile.loading('Сохранение...');
-  userInfoProfile.setUserInfo(data);
   api.setInfoUser(data)
     .then(() => {
+      userInfoProfile.setUserInfo(data);
       valuePopupProfile.close();
     })
     .catch((res) => console.log(res))
@@ -50,9 +51,9 @@ function handleProfileFormSubmit (data) {
 // Функция изменения аватара
 function handleProfileAvatarFormSubmit (data) {
   valuePopupProfileAvatar.loading('Сохранение...');
-  userInfoProfile.setUserAvatar(data);
   api.setAvatarUser(data)
     .then(() => {
+      userInfoProfile.setUserAvatar(data);
       valuePopupProfileAvatar.close();
     })
     .catch((res) => console.log(res))
@@ -70,9 +71,9 @@ function openPopupAddCards () {
 // Функция добавления карточки
 function handleCardFormSubmit (data) {
   valuePopupCard.loading('Сохранение...');
-  Promise.all([api.getInfoUser(), api.setCard(data)])
-    .then(([userData, card]) => {
-      cardsList.addNewItem(createCard(card, userData));
+  api.setCard(data)
+    .then((card) => {
+      cardsList.addItem(createCard(card, userId));
       valuePopupCard.close();
     })
     .catch((res) => console.log(res))
@@ -132,10 +133,10 @@ const userInfoProfile = new UserInfo({
 });
 
 // Функция создания класса Card
-function createCard(data, userData) {
+function createCard(data, userId) {
   const newCard = new Card(
     data,
-    userData,
+    userId,
     '#card',
     handleCardClick,
     {
@@ -143,11 +144,10 @@ function createCard(data, userData) {
           deletePopup.open();
           deletePopup.handlerSubmitBtnDelete(() => {
             api.deleteCard(id)
-              .then((res) => {
+              .then(() => {
                 newCard.deleteCard();
                 deletePopup.close();
               })
-              .catch((res) => console.log(res))
           });
         },
 
@@ -165,8 +165,6 @@ function createCard(data, userData) {
               newCard.setLikes(res.likes);
               console.log('поставили лайк');
             })
-            .catch((res) => console.log(res))
-
           }
         }
     }
@@ -177,8 +175,8 @@ function createCard(data, userData) {
 
 // Создаем класс Section, с помощью которого рендерим все наши карточки на страничке
 const cardsList = new Section({
-  renderer: (data, userData) => {
-      const cardElement = createCard(data, userData);
+  renderer: (data) => {
+      const cardElement = createCard(data, userId);
       cardsList.addItem(cardElement);
     }
   },

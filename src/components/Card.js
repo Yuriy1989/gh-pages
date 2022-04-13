@@ -1,12 +1,12 @@
 //Класс карточек
 export class Card {
-  constructor (data, userData, template, handleCardClick, {handlePopupDeleteCard, handleLikeCard}) {
+  constructor (data, userId, template, handleCardClick, {handlePopupDeleteCard, handleLikeCard}) {
     this._link = data.link;
     this._name = data.name;
     this._likes = data.likes;
-    this._id_user = userData._id;
-    this._id_user_card = data.owner._id;
-    this._id_card = data._id;
+    this._idUser = userId;
+    this._idUserCard = data.owner._id;
+    this._idCard = data._id;
     this._template = document.querySelector(template).content;
     this._handleCardClick = handleCardClick;
     this._handlePopupDeleteCard = handlePopupDeleteCard;
@@ -34,26 +34,26 @@ export class Card {
   _setEventDeleteCard() {
     this._cardDeleteBtn = this._element.querySelector('.cards__button-delete');
     this._cardDeleteBtn.addEventListener('click', () => {
-      this._handlePopupDeleteCard(this._id_card);
+      this._handlePopupDeleteCard(this._idCard);
     });
   }
 
 //Метод добавляющий слушателя для удаления карточки
   _setEventLikeCard() {
     this._cardLikeBtn.addEventListener('click', () => {
-      this._handleLikeCard(this._id_card);
+      this._handleLikeCard(this._idCard);
     });
   }
 
 //Проверяем лайкали ли мы данную карточку ранее
   searchLike() {
-    return this._likes.find((item) => item._id === this._id_user);
+    return this._likes.find((item) => item._id === this._idUser);
   }
 
 //Рендерим иконки и статистику по лайкам
   setLikes(card) {
     this._likes = card;
-    this._element.querySelector('.cards__amount-like').textContent = this._likes.length;
+    this._cardsAmountLike.textContent = this._likes.length;
     if(this.searchLike()) {
       this._cardLikeBtn.classList.add('cards__button_liked');
     } else {
@@ -64,17 +64,19 @@ export class Card {
 //Метод удаления карточки
   deleteCard() {
     this._element.remove();
+    this._element = null;
   }
 
 //Метод генерации заполненной карточки
   generateCard() {
     this._element = this._getTamplate();
+    this._cardsAmountLike = this._element.querySelector('.cards__amount-like');
     this._setEventListeners();
     this._cardOpenImage.src = this._link;
     this._cardOpenImage.alt = this._name;
     this._element.querySelector('.cards__text').textContent = this._name;
     this.setLikes(this._likes)
-    if(this._id_user_card === this._id_user) {
+    if(this._idUserCard === this._idUser) {
       this._cardDeleteBtn.style.display = 'inline';
     }
     return this._element;

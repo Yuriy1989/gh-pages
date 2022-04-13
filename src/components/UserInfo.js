@@ -9,10 +9,6 @@ export class UserInfo {
     return {about: this._valueProfileText.textContent, name: this._valueProfileName.textContent};
   }
 
-  getUserAvatar() {
-    return {avatar: this._profileAvatar.style.backgroundImage.slice(5, -2)};
-  }
-
   setUserInfo(data) {
     this._valueProfileName.textContent = data.name;
     this._valueProfileText.textContent = data.about;

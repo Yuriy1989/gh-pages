@@ -1,105 +1,92 @@
 class Api {
   constructor(options) {
-    this._options = options;
+    this._baseUrl = options.baseUrl;
+    this._headers = options.headers;
+  }
+
+  _getResponse(res) {
+    return res.ok ? res.json() : Promise.reject(res.status)
   }
 
   getInitialCards() {
-    return fetch(`${this._options.baseUrl}/cards`, {
-      headers: {
-        authorization: `${this._options.headers.authorization}`
-      }
+    return fetch(`${this._baseUrl}/cards`, {
+      headers: this._headers
     })
-      .then(res => res.ok ? res.json() : Promise.reject(res.status))
+      .then( res => this._getResponse(res))
       .catch(console.log)
   }
 
   setCard(data) {
-    return fetch(`${this._options.baseUrl}/cards`, {
+    return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
-      headers: {
-        authorization: `${this._options.headers.authorization}`,
-        'Content-type': 'application/json'
-      },
+      headers: this._headers,
       body: JSON.stringify({
         name: `${data.name}`,
         link: `${data.link}`
       })
     })
-      .then(res => res.ok ? res.json() : Promise.reject(res.status))
+      .then( res => this._getResponse(res))
       .catch(console.log)
   }
 
   deleteCard(id) {
-    return fetch(`${this._options.baseUrl}/cards/${id}`, {
+    return fetch(`${this._baseUrl}/cards/${id}`, {
       method: 'DELETE',
-      headers: {
-        authorization: `${this._options.headers.authorization}`,
-        'Content-type': 'application/json'
-      }
+      headers: this._headers
     })
-      .then(res => res.ok ? res.json() : Promise.reject(res.status))
+      .then( res => this._getResponse(res))
       .catch(console.log)
   }
 
   getInfoUser() {
-    return fetch(`${this._options.baseUrl}/users/me`, {
-      headers: {
-        authorization: `${this._options.headers.authorization}`
-      }
+    return fetch(`${this._baseUrl}/users/me`, {
+      headers: this._headers
     })
-      .then(res => res.ok ? res.json() : Promise.reject(res.status))
+      .then( res => this._getResponse(res))
       .catch(console.log)
   }
 
   setInfoUser(data) {
-    return fetch(`${this._options.baseUrl}/users/me`, {
+    return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
-      headers: {
-        authorization: `${this._options.headers.authorization}`,
-        'Content-type': 'application/json'
-      },
+      headers: this._headers,
       body: JSON.stringify({
         name: `${data.name}`,
         about: `${data.about}`
       })
     })
+      .then( res => this._getResponse(res))
+      .catch(console.log)
   }
 
   setAvatarUser(data) {
-    return fetch(`${this._options.baseUrl}/users/me/avatar`, {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
-      headers: {
-        authorization: `${this._options.headers.authorization}`,
-        'Content-type': 'application/json'
-      },
+      headers: this._headers,
       body: JSON.stringify({
         avatar: `${data.avatar}`
       })
     })
+      .then( res => this._getResponse(res))
+      .catch(console.log)
   }
 
   setLikes(id) {
-    return fetch(`${this._options.baseUrl}/cards/${id}/likes`, {
+    return fetch(`${this._baseUrl}/cards/${id}/likes`, {
       method: 'PUT',
-      headers: {
-        authorization: `${this._options.headers.authorization}`,
-        'Content-type': 'application/json'
-      }
+      headers: this._headers
     })
-    .then(res => res.ok ? res.json() : Promise.reject(res.status))
-    .catch(console.log)
+      .then( res => this._getResponse(res))
+      .catch(console.log)
   }
 
   deleteLikes(id) {
-    return fetch(`${this._options.baseUrl}/cards/${id}/likes`, {
+    return fetch(`${this._baseUrl}/cards/${id}/likes`, {
       method: 'DELETE',
-      headers: {
-        authorization: `${this._options.headers.authorization}`,
-        'Content-type': 'application/json'
-      }
+      headers: this._headers
     })
-    .then(res => res.ok ? res.json() : Promise.reject(res.status))
-    .catch(console.log)
+      .then( res => this._getResponse(res))
+      .catch(console.log)
   }
 }
 
